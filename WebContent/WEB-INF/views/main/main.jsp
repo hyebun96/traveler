@@ -41,7 +41,7 @@
 	<img src="img/mainimg2.jpg" style="height: 550px;">	
 		<br><br><br><br>
 	<div class=main-title>				
-		<h3>나에게로 떠나는 여행에 오신걸 환영합니다.</h3>
+		<h3>나에게로 떠나는 여행에 오신걸 환영합니다 .</h3>
 	</div>
 
 	<p>일상 탈출을 위한 여행</p>
