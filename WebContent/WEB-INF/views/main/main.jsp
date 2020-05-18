@@ -38,7 +38,6 @@
 	
 	<hr style="clear: both">
 
-
 	<img src="img/mainimg2.jpg" style="height: 550px;">	
 		<br><br><br><br>
 	<div class=main-title>				
