@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="./css/style.css" type="text/css">
+<link rel="stylesheet" href="./css/board.css" type="text/css">
+</head>
+<body>
+
+<div class="header">
+	<div class="header-top">
+		<div class="header-center">
+			<p style="margin: 2px;">
+				<a href="main.html" style="text-decoration: none;">
+				<img alt="HOME" src="img/logo.PNG" width="80"style="margin: 12px 16px">
+				</a>
+			</p>
+		</div>
+		
+		<div class="header-right">
+			<div style="padding-top: 30px;  float: right;">
+			<div class="menu">
+		        <ul class="nav">
+		            <li>
+		                <a href="#">여행지</a>
+		                <ul>
+		                    <li><a href="travel_seoul.html">수도권</a></li>
+		                    <li><a href="travel_gangwon.html">강원</a></li>
+		                    <li><a href="#">충청</a></li>
+		                    <li><a href="#">전라</a></li>
+		                    <li><a href="#">경상</a></li>
+		                    <li><a href="#">제주</a></li>
+		                    
+		                </ul>
+		            </li>
+		                
+		            <li>
+		                <a href="#">GALLERY</a>
+		                <ul>
+		                    <li><a href="galleryphoto.html" style="padding-left: 100px;">사진</a></li>
+		                    <li><a href="#">동영상</a></li>
+		                </ul>
+		            </li>
+		
+		            <li>
+		                <a href="#">BOARD</a>
+		                <ul>
+		                	<li><a href="notice.html"  style="padding-left: 190px;">공지사항</a></li>
+		                	<li><a href="qna.html">Q&amp;A</a></li>
+		                	<li><a href="board.html">자유게시판</a></li>
+		                </ul>
+		            </li>
+		
+		            <li>
+		                <a href="contact.html">CONTACT</a>     
+		            </li>  
+		        </ul>
+		        
+		        <ul  class="nav2">
+		            <li>
+		            	<a href="login.html" style="font-size: 12px;">login</a>
+		            	&nbsp;
+			       		<a href="signup.html" style="font-size: 12px;">sign up</a>
+			       	</li>	
+		        </ul>   
+    		</div>	   
+		</div>
+		</div>
+	</div>
+	
+	
+    <div class="navigation">
+        <div class="nav-bar">HOME > BOARD > 자유게시판</div>
+
+    </div>
+</div>
+
+<div class="board">
+<h3>자유게시판</h3>
+<div style="text-align: right;">
+	<select name="category" style="height: 23px;">
+			<option value="">:: 선택 ::</option>
+			<option value="title">글제목</option>
+			<option value="contents">글내용</option>
+			<option value="writer">작성자</option>
+	</select>
+	<input type="text" name="search" style="vertical-align: bottom; height: 19px;">
+	<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;">검색</button>
+</div>
+
+
+	<table class="board-table">
+		<tr style="border-bottom: 2px solid black;">
+			<td>게시번호</td>
+			<td style="width: 50%">제목</td>
+			<td>작성자</td>
+			<td>작성일</td>
+			<td>조회수</td>		
+		</tr>
+		<tr>
+			<td>1</td>
+			<td class="board-title">오늘은...</td>
+			<td>듀듀</td>
+			<td>2020-04-23</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td class="board-title">빨리 다음주가 왔으면 좋겠다^^</td>
+			<td>버즈</td>
+			<td>2020-04-24</td>
+			<td>100</td>
+		</tr>
+			
+	</table>
+	<div class="number">
+		<a href="#">이전</a>
+		<a href="#">1</a>
+		<a href="#">2</a>
+		<a href="#">3</a>
+		<a href="#">다음</a>
+	</div>
+	
+	<div align="right">
+			<button>목록으로</button>
+	</div>
+	
+</div>
+
+<div class="footer">
+	<a href="#">공지사항</a>&nbsp;&nbsp;&nbsp;
+	<a href="#">Forecast</a>&nbsp;&nbsp;&nbsp;
+	<a href="#">Event</a>&nbsp;&nbsp;&nbsp;
+	© 나에게로떠나는여행 Corp.&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#"> <img alt="facebook" src="img/facebook.png" width="20px" height="20px"></a>&nbsp;
+	<a href="https://www.instagram.com/cutyprettykong/"> <img alt="instagram" src="img/insta.png"></a>&nbsp;
+	<a href="#"> <img alt="twitter" src="img/twitter.png"> </a>
+	
+</div>
+
+
+</body>
+</html>

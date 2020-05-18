@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+
+/* navigation */
+.navigation {
+    width:1080px;
+    height: 40px;
+    clear: both;
+    margin: 0 auto;
+    border-bottom: 1px solid #cccccc;
+}
+
+.nav-bar {
+	width:1080px;
+    height: 40px;
+    clear: both;
+    line-height:40px;
+    font-size: 11px;
+    text-align: right;
+    box-sizing: border-box;
+ 	padding: 10px;
+}
+.main{
+	width:1080px;
+	min-height: 500px;
+	margin: 10px auto 50px;
+}
+.main .content-top img{
+	float: left;
+	width: 100%;
+	height: 350px;
+}
+
+.main .weather{
+	width: 950px;
+	height: 90px;
+	padding: 5px 65px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+.main .weather>img{
+	float : left;
+	 height: 70px;
+	 width: 70px; 
+	 margin-top: 10px; 
+	 margin-left: 20px; 
+}
+
+.main .weather>p{
+	float : left;
+	font-size: 30px;
+	margin-top: 30px;
+	margin-left: 10px;
+}
+
+.main .box{
+	margin-bottom: 100px;
+}
+
+
+.main .content-box img{
+	width: 950px;
+	height: 400px;
+	padding: 10px 65px;
+}
+
+.main .content-box2{
+	margin-top: 20px;
+}
+
+.main .content-box2 img{
+	width: 50px;
+	height : 50px;
+	float : left;
+	border-radius : 100px;
+	padding-left: 65px;
+}
+
+.main .content-box2 span{
+	padding-top: 20px;
+	padding-left: 10px;
+	
+}
+
+.main .content-box2 .content{
+	padding: 15px 65px;
+}
+
+
+.main div .like-box{
+	padding: 10px 65px;
+}
+
+.main div .like-box a{
+	color: #f8a371;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.main div .like-box a:hover{
+	color: #f8a371;
+	text-decoration: none;
+	font-size: 50px;
+}

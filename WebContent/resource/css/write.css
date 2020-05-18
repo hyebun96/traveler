@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+.write{
+	width: 800px;
+	margin: 50px auto;
+}
+
+.write-title{
+	width: 100%;
+	height: 20px;
+}

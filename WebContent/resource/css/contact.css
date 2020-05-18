@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+
+.btn {
+	color:#333333;
+	font-weight:500;
+	border:1px solid #cccccc;
+	background-color:#fff;
+	text-align:center;
+	cursor:pointer;
+	padding:3px 10px 5px;
+	border-radius:4px;
+}
+.btn:active, .btn:focus, .btn:hover {
+	background-color:#e6e6e6;
+	border-color: #adadad;
+	color: #333333;
+}
+
+.boxTF {
+	border:1px solid #999999;
+	padding:4px 5px 5px;
+	border-radius:4px;
+}
+
+
+.selectField {
+	border:1px solid #999999;
+	padding:2px 5px 6px;
+	border-radius:4px;
+	font-size: 12px;
+}
+
+.title{
+	width:100%;
+	height:45px;
+	line-height:45px;
+	font-weight: bold;
+	margin: 10px;
+	
+}
+
+.member-body {
+	width:500px;
+	height:700px;
+	margin:100px auto 900px;
+	clear: both;
+}
+
+
+
+.list-row {
+	float:left;
+	list-style:none;
+}
+
+.list-row li {
+	padding-left: 10px;
+	height: 37px;
+	line-height: 37px;
+	text-align: left;
+}
+
+.col-sub {
+	color: #999;
+}
+
+.col-input {
+	width: 200px;
+}
+
+

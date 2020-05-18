@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+
+* {
+    margin:0; padding:0;
+}
+
+body {
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+    font-size: 13px;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    /*line-height: 150%;*/
+}
+a:hover, a:active {
+    color: #F28011;
+    text-decoration: underline;
+}
+
+.footer >a{
+	color:white;
+}
