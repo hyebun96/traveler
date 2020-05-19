@@ -14,7 +14,7 @@ public class DBConn {
 		String url="jdbc:oracle:thin:@211.238.142.53:1521:XE";
 		// String url="jdbc:oracle:thin:@127.0.0.1:1521:ORCL";  // 11g
 		// String url="jdbc:oracle:thin:@//localhost:1521/ORCL"; // 12C ÀÌ»ף
-		String user="bluesky";
+		String user="traveler";
 		String pwd="java$!";
 		
 		if(conn==null) {

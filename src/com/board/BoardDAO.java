@@ -15,7 +15,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String sql;
 		try {
-			sql = "INSERT INTO board(name, id, title, content) VALUES(?,?,?,?)";
+			sql = "INSERT INTO board(boardNum,name, id, title, content) VALUES(board_seq.NextVAL,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getId());
@@ -229,5 +229,81 @@ public class BoardDAO {
 			}
 			
 			return list;
+		}
+		
+		// 조회수증가
+		public int updateViewCount(int num) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql;
+			
+			try {
+				sql = "UPDATE board SET viewCount=viewCount+1 WHERE boardNum = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				result = pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {		
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
+			}
+			
+			return result;
+		}
+		
+		public BoardDTO readBoard(int num) {
+			BoardDTO dto = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			StringBuilder sb = new StringBuilder();
+			
+			try {
+				sb.append("SELECT boardNum, id, name, title, content, created, viewCount ");
+				sb.append("FROM board ");
+				sb.append("WHERE boardNum = ?");
+				
+				pstmt = conn.prepareStatement(sb.toString());
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dto = new BoardDTO();
+					dto.setNum(rs.getInt("boardNum"));
+					dto.setId(rs.getString("id"));
+					dto.setName(rs.getString("name"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("contenet"));
+					dto.setCreated(rs.getString("created"));
+					dto.setViewCount(rs.getInt("viewCount"));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
+				
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
+			}
+			
+			return dto;
 		}
 }

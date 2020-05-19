@@ -8,6 +8,13 @@ public class BoardDTO {
 	private String content;
 	private int viewCount;
 	private String created;
+	private int listNum;
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public int getNum() {
 		return num;
 	}

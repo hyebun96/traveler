@@ -13,6 +13,7 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/board.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
 
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
@@ -27,41 +28,45 @@
 <div class="board">
 <h3>자유게시판</h3>
 <div style="text-align: right;">
-	<select name="category" style="height: 23px;">
+	<select name="condition" style="height: 23px;">
 			<option value="">:: 선택 ::</option>
 			<option value="title">글제목</option>
 			<option value="contents">글내용</option>
 			<option value="writer">작성자</option>
 	</select>
-	<input type="text" name="search" style="vertical-align: bottom; height: 19px;">
+	<input type="text" name="keyword" style="vertical-align: bottom; height: 19px;">
 	<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;">검색</button>
 </div>
 
-
+	
 	<table class="board-table">
 		<tr style="border-bottom: 2px solid black;">
-			<td>게시번호</td>
-			<td style="width: 50%">제목</td>
+			<td>글번호</td>
+			<td style="width: 50%"><a>제목</a></td>
 			<td>작성자</td>
 			<td>작성일</td>
-			<td>조회수s</td>		
+			<td>조회수</td>		
 		</tr>
+	<c:forEach var="dto" items="${list }">
 		<tr>
-			<td>1</td>
-			<td class="board-title">오늘은...</td>
-			<td>듀듀</td>
-			<td>2020-04-23</td>
-			<td>3</td>
+			<td>${dto.listNum }</td>
+			<td class="board-title"><a>${dto.title }</a></td>
+			<td>${dto.name }</td>
+			<td>${dto.created }</td>
+			<td>${dto.viewCount }</td>
 		</tr>
-		<tr>
-			<td>2</td>
-			<td class="board-title">빨리 다음주가 왔으면 좋겠다^^</td>
-			<td>버즈</td>
-			<td>2020-04-24</td>
-			<td>100</td>
-		</tr>
+	</c:forEach>
 			
 	</table>
+	
+	<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		<tr height="35">
+			<td align="center">
+			        ${dataCount==0?"등록된 게시물이 없습니다.":paging}
+			</td>
+	   </tr>
+	</table>
+	
 	<div class="number">
 		<a href="#">이전</a>
 		<a href="#">1</a>
