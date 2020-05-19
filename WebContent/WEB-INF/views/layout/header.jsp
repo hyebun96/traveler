@@ -38,7 +38,7 @@ $(function(){
 		            <li>
 		                <a href="#">여행지</a>
 		                <ul>
-		                    <li><a href="#">수도권</a></li>
+		                    <li><a href="<%=cp%>/travel/seoul.do">수도권</a></li>
 		                    <li><a href="#">강원</a></li>
 		                    <li><a href="#">충청</a></li>
 		                    <li><a href="#">전라</a></li>
