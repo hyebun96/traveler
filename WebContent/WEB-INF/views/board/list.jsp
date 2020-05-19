@@ -67,13 +67,7 @@
 	   </tr>
 	</table>
 	
-	<div class="number">
-		<a href="#">이전</a>
-		<a href="#">1</a>
-		<a href="#">2</a>
-		<a href="#">3</a>
-		<a href="#">다음</a>
-	</div>
+	
 	
 	<div align="right">
 			<button>목록으로</button>
