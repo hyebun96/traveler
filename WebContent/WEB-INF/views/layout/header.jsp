@@ -66,8 +66,14 @@ $(function(){
 		            </li>
 		
 		            <li>
-		                <a href="#">CONTACT</a>     
+		                <a href="#">CONTACT</a> 
+		                <c:if test="${sessionScope.member.userId=='admin'}">
+		                <ul>
+		                	<li><a href="#"  style="padding-left: 190px;">CONTACT목록확인</a></li>
+		                </ul>   
+		                </c:if> 
 		            </li>  
+		            
 		        </ul>
 		        
 		        <ul  class="nav2">

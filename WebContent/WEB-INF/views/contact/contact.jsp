@@ -16,23 +16,37 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/contact.css" type="text/css">
 <script type="text/javascript">
 function sendOk() {
-    var f = document.boardForm;
+    var f = document.contactForm;
+    
+	var str = f.ctName.value;
+    if(!str) {
+        alert("이름을 입력하세요. ");
+        f.ctName.focus();
+        return;
+    }
+    
+    if(f.ctTel.value==null && f.ctEmail.value==null) {
+        alert("이메일, 전화번호 중 연락처를 한 개 이상입력하세요. ");
+        f.ctEmail.focus();
+        return;
+    }
 
-	var str = f.subject.value;
+	str = f.ctSubject.value;
     if(!str) {
         alert("제목을 입력하세요. ");
-        f.subject.focus();
+        f.ctSubject.focus();
         return;
     }
 
-	str = f.content.value;
+	str = f.ctContent.value;
     if(!str) {
         alert("내용을 입력하세요. ");
-        f.content.focus();
+        f.ctContent.focus();
         return;
     }
 
-	f.action="<%=cp%>/board/${mode}_ok.do";
+
+	f.action="<%=cp%>/contact/contact_ok.do";
 
     f.submit();
 }
@@ -48,7 +62,7 @@ function sendOk() {
 	<div class="title">
 		<h1>CONTACT</h1>
 	</div>	
-	<form name="contact" method="post">
+	<form name="contactForm" method="post">
 		<ul class="list-row">
 			<li class="col-sub">이름</li>
 			<li class="col-input">
@@ -73,7 +87,7 @@ function sendOk() {
 		<ul class="list-row" style="clear: both;">
 			<li class="col-sub">분류</li>
 			<li class="col-input">
-				  <select name="contactSort" class="selectField">
+				  <select name="ctSort" class="selectField">
 						<option value="">::선 택::</option>
 						<option value="sugg">제안</option>
 						<option value="edit">정보수정요청</option>
@@ -93,10 +107,10 @@ function sendOk() {
 		</ul>
 		<ul class="list-row" style="clear: both;">
 			<li style="margin-bottom: 100px;">
-				<textarea id="content" name="content" rows="15" cols="54" style="resize: none;" ></textarea></li>	
+				<textarea id="content" name="ctContent" rows="15" cols="54" style="resize: none;" ></textarea></li>	
 			<li class="col-btn" style="clear: both; margin-top: 250px;" >
-				<button type="reset" class="btn"> 다시입력 </button>
 				<button type="button" class="btn" onclick="sendOk();"> 전송 </button>
+				<button type="reset" class="btn"> 다시입력 </button>
 			</li>
 		</ul>
 	</form>

@@ -11,6 +11,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/contact.css" type="text/css">
 </head>
 <body>
 
