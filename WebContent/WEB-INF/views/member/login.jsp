@@ -18,6 +18,38 @@
 
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+function bgLabel(ob, id) {
+    if(!ob.value) {
+	    document.getElementById(id).style.display="";
+    } else {
+	    document.getElementById(id).style.display="none";
+    }
+}
+
+function sendLogin() {
+    var f = document.loginForm;
+
+	var str = f.userId.value;
+    if(!str) {
+        alert("아이디를 입력하세요. ");
+        f.userId.focus();
+        return;
+    }
+
+    str = f.userPwd.value;
+    if(!str) {
+        alert("패스워드를 입력하세요. ");
+        f.userPwd.focus();
+        return;
+    }
+
+    f.action = "<%=cp%>/member/login_ok.do";
+    f.submit();
+}
+
+</script>
 </head>
 <body>
 
@@ -33,20 +65,25 @@
 	</div>
 	
 	<div class="index">
-	 <form name="myForm" action="javascript:send();" method="post">
-		<input type="text" required="required" maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="UserID">
+	 <form name="loginForm" action="javascript:send();" method="post">
+		<input type="text" name="userId" required="required" maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="UserID">
 		<span data-placeholder="UserID"></span>	
 
-         <input type="password" required="required"  maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="Password">
+         <input type="password" name="userPwd" required="required"  maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="Password">
          <span data-placeholder="Password"></span>
-      <button type="submit">Login</button>
+      <button type="button" onclick="sendLogin();">Login</button>
       </form>
     </div> 
         
     <div class="bottom-text">
-        Don't have account? <a href="#">Sign up</a>
+		<a href="<%=cp%>/">아이디찾기/</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="<%=cp%>/">패스워드찾기</a>&nbsp;&nbsp;&nbsp;<br>
+        Don't have account? <a href="Sign up">Sign up</a>
     </div>
-</div>
 
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
+    
+</div>
 </body>
 </html>
