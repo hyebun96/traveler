@@ -1,7 +1,5 @@
 package com.member;
 
-import java.util.Date;
-
 public class MemberDTO {
 	private String userId;
 	private String userPwd;
@@ -9,6 +7,7 @@ public class MemberDTO {
 	private String userTel,Tel1,Tel2,Tel3;
 	private String userEmail,Email1,Email2;
 	private String userBirth;
+	private String imageFilename;
 	
 	public String getUserId() {
 		return userId;

@@ -81,7 +81,7 @@ $(function(){
 		            <c:if test="${empty sessionScope.member}">
 		            	<a href="<%=cp%>/member/login.do" style="font-size: 12px;">login</a>
 		            	&nbsp;
-			       		<a href="#" style="font-size: 12px;">sign up</a>
+			       		<a href="<%=cp%>/member/member.do" style="font-size: 12px;">sign up</a>
 			       	</c:if>	
 			       	<c:if test="${not empty sessionScope.member}">
 			       	 <span style="color:blue;">${sessionScope.member.userName}</span>님

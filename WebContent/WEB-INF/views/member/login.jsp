@@ -14,10 +14,7 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/login.css" type="text/css">
-<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
 
-<script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
 
 <script type="text/javascript">
 function bgLabel(ob, id) {
@@ -78,12 +75,12 @@ function sendLogin() {
     <div class="bottom-text">
 		<a href="<%=cp%>/">아이디찾기/</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="<%=cp%>/">패스워드찾기</a>&nbsp;&nbsp;&nbsp;<br>
-        Don't have account? <a href="Sign up">Sign up</a>
+        Don't have account? <a href="<%=cp%>/member/member.do">Sign up</a>
     </div>
+</div>
 
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
-    
+<div class="footer">
+    <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
 </body>
 </html>

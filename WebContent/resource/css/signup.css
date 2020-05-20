@@ -2,14 +2,14 @@
 
 .main .signup{
 
-	width:300px;
+	width:400px;
 	margin: 40px auto;
 	margin-top : 100px;
 	margin-bottom: 50px;
 }
 
 .main .index{
-	width: 300px;
+	width: 400px;
 	height: 50px;
 	margin: 0 auto;
 	position: relative;
@@ -24,6 +24,17 @@
   outline: none;
   background: none;
   padding: 0 5px;
+  height: 45px;
+}
+.index .input email{
+  border-bottom: 2px solid #999 !important;	
+  font-size: 15px;
+  color: #333;
+  border: none;
+  width: 50px;
+  outline: none;
+  background: none;
+  padding: 0 5px;
   height: 40px;
 }
 
@@ -34,14 +45,27 @@
 
 }
 
-.main .index button{
-	width: 300px; height:50px;
-	border-radius: 5px;
+.indexBtn{
+	width: 100px; height:50px;
+	border-radius: 20px;
 	border: 1px solid white;
-	margin: 22px auto;
+	margin-top: 22px;
+	margin-right:25px;
 	background: linear-gradient(45deg,pink,skyblue);
-	font-size: 18px;
+	font-size: 15px;
 }
 
+.selectField{
+	border:1px solid #999999;
+	padding:2px 5px 4px;
+	border-radius:4px;
+	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	margin-top: 12px;
+}
 
-
+.index img{
+	 width:30px; 
+	 height:30px; 
+	 border:0px;
+	 cursor: pointer;
+}
