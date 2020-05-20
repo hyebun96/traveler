@@ -18,6 +18,13 @@
 
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function searchList() {
+		var f=document.searchForm;
+		f.submit();
+	}
+</script>
+
 </head>
 <body>
 
@@ -27,17 +34,17 @@
 
 <div class="board">
 <h3>자유게시판</h3>
+<form name="searchForm" action="<%=cp%>/board/board.do" method="post">
 <div style="text-align: right;">
 	<select name="condition" style="height: 23px;">
-			<option value="">:: 선택 ::</option>
-			<option value="title">글제목</option>
-			<option value="contents">글내용</option>
-			<option value="writer">작성자</option>
+			<option value="title" ${condition=="title"?"selected='selected'":"" }>글제목</option>
+			<option value="contents" ${condition=="contents"?"selected='selected'":"" }>글내용</option>
+			<option value="writer" ${condition=="writer"?"selected='selected'":"" }>작성자</option>
 	</select>
 	<input type="text" name="keyword" style="vertical-align: bottom; height: 19px;">
-	<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;">검색</button>
+	<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;" onclick="searchList()">검색</button>
 </div>
-
+</form>
 	
 	<table class="board-table">
 		<tr style="border-bottom: 2px solid black;">
@@ -50,7 +57,7 @@
 	<c:forEach var="dto" items="${list }">
 		<tr>
 			<td>${dto.listNum }</td>
-			<td class="board-title"><a>${dto.title }</a></td>
+			<td class="board-title"><a href="${articleUrl }&num=${dto.num}">${dto.title }</a></td>
 			<td>${dto.name }</td>
 			<td>${dto.created }</td>
 			<td>${dto.viewCount }</td>
@@ -70,7 +77,7 @@
 	
 	
 	<div align="right">
-			<button>목록으로</button>
+			<button type = "button" onclick="javascript:location.href='<%=cp%>/board/write.do';">글등록</button>
 	</div>
 	
 </div>

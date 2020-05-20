@@ -3,6 +3,7 @@ package com.board;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,9 +81,8 @@ public class BoardDAO {
 			StringBuilder sb = new StringBuilder();
 			
 			try {
-				sb.append("SELECT NVL(COUNT(*),0) FROM board b ");
-				sb.append("JOIN member m ON m.uerId = b.id ");
-				if(condition.equals("write")) {
+				sb.append("SELECT NVL(COUNT(*),0) FROM board ");
+				if(condition.equals("writer")) {
 					sb.append("WHERE INSTR(name, ? ) = 1");
 				}else if(condition.equals("contents")) {
 					sb.append("WHERE INSTR(content,?) >=1");
@@ -279,7 +279,7 @@ public class BoardDAO {
 					dto.setId(rs.getString("id"));
 					dto.setName(rs.getString("name"));
 					dto.setTitle(rs.getString("title"));
-					dto.setContent(rs.getString("contenet"));
+					dto.setContent(rs.getString("content"));
 					dto.setCreated(rs.getString("created"));
 					dto.setViewCount(rs.getInt("viewCount"));
 				}
@@ -305,5 +305,63 @@ public class BoardDAO {
 			}
 			
 			return dto;
+		}
+		public int updateBoard(BoardDTO dto) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql;
+			
+			sql="UPDATE board SET title=?, content=? WHERE boardNum=? AND id=?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setInt(3, dto.getNum());
+				pstmt.setString(4, dto.getId());
+				result = pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(pstmt!=null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+					}
+				}
+			}		
+			return result;
+		}
+		
+		public int deleteBoard(int num, String userId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql;
+			
+			try {
+				if(userId.equals("admin")) {
+					sql="DELETE FROM board WHERE boardNum=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					result = pstmt.executeUpdate();
+				}else {
+					sql="DELETE FROM board WHERE boardNum=? AND id=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.setString(2, userId);
+					result = pstmt.executeUpdate();
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(pstmt!=null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+					}
+				}
+			}		
+			return result;
 		}
 }
