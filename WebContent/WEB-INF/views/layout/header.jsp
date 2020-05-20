@@ -59,7 +59,7 @@ $(function(){
 		            <li>
 		                <a href="#">BOARD</a>
 		                <ul>
-		                	<li><a href="#"  style="padding-left: 190px;">공지사항</a></li>
+		                	<li><a href="<%=cp %>/notice/notice.do"  style="padding-left: 190px;">공지사항</a></li>
 		                	<li><a href="#">Q&amp;A</a></li>
 		                	<li><a href="<%=cp %>/board/board.do">자유게시판</a></li>
 		                </ul>
