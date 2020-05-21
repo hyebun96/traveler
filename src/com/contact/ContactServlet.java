@@ -101,6 +101,10 @@ public class ContactServlet extends HttpServlet {
 			condition="subject";
 			keyword="";
 		}
+		String ctSort=req.getParameter("ctSort");
+		if(ctSort==null) {
+			ctSort="";
+		}
 				
 		// GET 방식인 경우 디코딩
 		if(req.getMethod().equalsIgnoreCase("GET")) {
@@ -110,9 +114,9 @@ public class ContactServlet extends HttpServlet {
 		// 전체 데이터 개수
 		int dataCount;
 		if(keyword.length()==0)
-			dataCount=dao.dataCount();
+			dataCount=dao.dataCount(ctSort);
 		else
-			dataCount=dao.dataCount(condition, keyword);
+			dataCount=dao.dataCount(condition, keyword,ctSort);
 				
 		// 전체 페이지 수
 		int rows=20;
@@ -126,16 +130,22 @@ public class ContactServlet extends HttpServlet {
 		
 		List<ContactDTO> list = null;
 		if(keyword.length()==0) {
-			list=dao.listContact(offset, rows);
+			list=dao.listContact(offset, rows,ctSort);
 		} else {
-			list=dao.listContact(offset, rows, condition, keyword);
+			list=dao.listContact(offset, rows, condition, keyword,ctSort);
 		}
 		
 		String query="";
 		if(keyword.length()!=0) {
 			query="condition="+condition+ "&keyword="+URLEncoder.encode(keyword, "utf-8");
 		}
-		
+		if(ctSort.length()!=0) {
+			if(query.length()!=0) {
+				query+="&"+"ctSort="+ctSort;
+			} else {
+				query="ctSort="+ctSort;
+			}
+		}
 		String listUrl =cp+"/contact/list.do";
 		String viewUrl=cp+"/contact/view.do?page="+current_page;
 		if(query.length()!=0) {
@@ -145,6 +155,7 @@ public class ContactServlet extends HttpServlet {
 		
 		String paging = util.paging(current_page, total_page, listUrl);
 		
+		req.setAttribute("ctSort", ctSort);
 		req.setAttribute("list", list);
 		req.setAttribute("page", current_page);
 		req.setAttribute("total_page", total_page);
@@ -189,6 +200,7 @@ public class ContactServlet extends HttpServlet {
 		req.setAttribute("query", query);
 		req.setAttribute("page", page);
 		req.setAttribute("rows", rows);
+		req.setAttribute("mode", "fin");
 		
 		forward(req, resp, "/WEB-INF/views/contact/view.jsp");
 	}

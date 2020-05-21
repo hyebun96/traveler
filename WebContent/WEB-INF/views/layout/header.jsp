@@ -36,7 +36,7 @@ $(function(){
 			<div class="menu">
 		        <ul class="nav">
 		            <li>
-		                <a href="#">여행지</a>
+		                <a href="<%=cp%>/travel/seoul.do"">여행지</a>
 		                <ul>
 		                    <li><a href="<%=cp%>/travel/seoul.do">수도권</a></li>
 		                    <li><a href="#">강원</a></li>
@@ -57,7 +57,7 @@ $(function(){
 		            </li>
 		
 		            <li>
-		                <a href="#">BOARD</a>
+		                <a href="<%=cp %>/notice/notice.do">BOARD</a>
 		                <ul>
 		                	<li><a href="<%=cp %>/notice/notice.do"  style="padding-left: 190px;">공지사항</a></li>
 		                	<li><a href="#">Q&amp;A</a></li>
@@ -66,10 +66,11 @@ $(function(){
 		            </li>
 		
 		            <li>
-		                <a href="#">CONTACT</a> 
+		                <a href="<%=cp%>/contact/contact.do">CONTACT</a> 
 		                <c:if test="${sessionScope.member.userId=='admin'}">
 		                <ul>
-		                	<li><a href="<%=cp%>/contact/list.do" style="padding-left: 270px;">CONTACT목록확인</a></li>
+		                	<li><a href="<%=cp%>/contact/contact.do" style="padding-left: 270px;">CONTACT</a></li>
+		                	<li><a href="<%=cp%>/contact/list.do" >CONTACT목록확인</a></li>
 		                </ul>   
 		                </c:if> 
 		            </li>  

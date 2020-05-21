@@ -13,10 +13,17 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
-<link rel="stylesheet" href="<%=cp%>/resource/css/board.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/contact_list.css" type="text/css">
 <script type="text/javascript">
 function searchList() {
 	var f=document.searchForm;
+	f.action = "<%=cp%>/contact/list.do"
+	f.submit();
+}
+
+function searchList2(ctSort) {
+	var f=document.searchForm;
+	f.ctSort.value=ctSort;
 	f.action = "<%=cp%>/contact/list.do"
 	f.submit();
 }
@@ -38,25 +45,34 @@ function searchList() {
 				<td>
 				<form name="searchForm" action="<%=cp%>/contact/list.do" method="post">
 					<select name="condition" style="height: 23px;">
-					<option value="">:: 선택 ::</option>
-					<option value="ctSubject" ${condition=="ctSubject"?"selected='selected'":""}>글제목</option>
-					<option value="ctContent" ${condition=="ctContent"?"selected='selected'":""}>글내용</option>
-					<option value="ctName" ${condition=="ctName"?"selected='selected'":""}>작성자</option>
-				</select>
+						<option value="ctSubject" ${condition=="ctSubject"?"selected='selected'":""}>글제목</option>
+						<option value="ctContent" ${condition=="ctContent"?"selected='selected'":""}>글내용</option>
+						<option value="ctName" ${condition=="ctName"?"selected='selected'":""}>작성자</option>
+					</select>
 					<input type="hidden" name="rows" value="${rows}">
 					<input type="hidden" name="ctNum" value="${ctNum}">
+					<input type="hidden" name="ctSort" value="${ctSort}">
 					<input type="text" name="keyword" value="${keyword}">
 					<button type="button" class="btn" onclick="searchList()">검색</button>
 				</form>
 				</td>
 			</tr>
 		</table>
+		<table style="margin-bottom: 20px;">
+			<tr>
+				<td style="padding-right: 20px;"><a href="javascript:searchList2('sugg');">제안</a></td>
+				<td style="padding-right: 20px;"><a href="javascript:searchList2('edit');">정보수정요청</a></td>
+				<td style="padding-right: 20px;"><a href="javascript:searchList2('ad');">광고문의</a></td>
+				<td style="padding-right: 20px;"><a href="javascript:searchList2('etc');">기타</a></td>
+				<td><a onclick="javascript:location.href='<%=cp%>/contact/list.do';">새로고침</a></td>
+			</tr>
+		</table>
 	</div>
 	<div>
 		<table  class="board-table">
 			<tr  style="border-bottom: 2px solid black;">
-				<td>분류</td>
-				<td>번호</td>
+				<td width="100">분류</td>
+				<td width="50">번호</td>
 				<td style="width: 50%">제목</td>
 				<td>작성자</td>
 				<td>작성일</td>

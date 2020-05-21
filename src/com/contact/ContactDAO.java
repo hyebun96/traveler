@@ -41,7 +41,7 @@ public class ContactDAO {
 	}
 	
 	// 데이터 개수
-	public int dataCount() {
+	public int dataCount(String ctSort) {
 		int result=0;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -49,8 +49,14 @@ public class ContactDAO {
 		
 		try {
 			sql="SELECT NVL(COUNT(*),0) FROM contact";
-			pstmt=conn.prepareStatement(sql);
+			if(ctSort.length()!=0) {
+				sql+=" WHERE ctSort= ? ";
+			}
 			
+			pstmt=conn.prepareStatement(sql);
+			if(ctSort.length()!=0) {
+				pstmt.setString(1, ctSort);
+			} 			
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				result=rs.getInt(1);
@@ -76,7 +82,7 @@ public class ContactDAO {
 	}
 	// 검색에서의 데이터 개수
 	
-	public int dataCount(String condition, String keyword) {
+	public int dataCount(String condition, String keyword, String ctSort) {
 		int result=0;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -89,9 +95,16 @@ public class ContactDAO {
 				sql+=" WHERE TO_CHAR(ctDate, 'YYYYMMDD')=?";
 			} else {
 				sql+=" WHERE INSTR("+condition+", ?) >=1";
-			}			
+			}	
+			if(ctSort.length()!=0) {
+				sql+= " AND ctSort= ? ";
+			}
 			pstmt=conn.prepareStatement(sql);
+			
 			pstmt.setString(1, keyword);
+			if(ctSort.length()!=0) {
+				pstmt.setString(2, ctSort);
+			}
 			
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -118,7 +131,7 @@ public class ContactDAO {
 	}
 	
 	// 컨택트 리스트 (admin만 출력)
-	public List<ContactDTO> listContact(int offset, int rows){
+	public List<ContactDTO> listContact(int offset, int rows, String ctSort){
 		List<ContactDTO> list = new ArrayList<ContactDTO>();
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -127,12 +140,22 @@ public class ContactDAO {
 		try {
 			sb.append("SELECT ctSort, ctNum, ctName, ctSubject, TO_CHAR(ctDate, 'YYYY-MM-DD') ctDate, fin ");
 			sb.append(" FROM contact ");
+			if(ctSort.length()!=0) {
+				sb.append(" WHERE ctSort= ? ");
+			}
 			sb.append(" ORDER BY ctNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 			
 			pstmt=conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, offset);
-			pstmt.setInt(2, rows);
+			
+			if(ctSort.length()==0) {
+				pstmt.setInt(1, offset);
+				pstmt.setInt(2, rows);
+			} else {
+				pstmt.setString(1, ctSort);
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, rows);
+			}
 			
 			rs= pstmt.executeQuery();
 			while(rs.next()) {
@@ -165,7 +188,7 @@ public class ContactDAO {
 		return list;
 	}
 	
-	public List<ContactDTO> listContact(int offset, int rows, String condition, String keyword){
+	public List<ContactDTO> listContact(int offset, int rows, String condition, String keyword, String ctSort){
 		List<ContactDTO> list = new ArrayList<ContactDTO>();
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -179,14 +202,24 @@ public class ContactDAO {
 				sb.append(" WHERE TO_CHAR(ctDate, 'YYYYMMDD')=?");
 			} else {
 				sb.append(" WHERE INSTR("+condition+", ?) >=1");
-			}			
+			}	
+			
+			if(ctSort.length()!=0) {
+				sb.append(" AND ctSort= ? ");
+			}
 			sb.append(" ORDER BY ctNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 			
 			pstmt=conn.prepareStatement(sb.toString());
 			pstmt.setString(1, keyword);
-			pstmt.setInt(2, offset);
-			pstmt.setInt(3, rows);
+			if(ctSort.length()==0) {
+				pstmt.setInt(2, offset);
+				pstmt.setInt(3, rows);
+			} else {
+				pstmt.setString(2, ctSort);
+				pstmt.setInt(3, offset);
+				pstmt.setInt(4, rows);
+			}
 			
 			rs= pstmt.executeQuery();
 			while(rs.next()) {
@@ -228,7 +261,7 @@ public class ContactDAO {
 		
 		try {
 			sb.append("SELECT ctNum, ctSort, ctName, ctSubject, ctContent");
-			sb.append(", ctTel, ctEmail, ctDate");
+			sb.append(", ctTel, ctEmail, ctDate, fin");
 			sb.append(" FROM contact WHERE ctNum=?");
 			
 			pstmt = conn.prepareStatement(sb.toString());
@@ -246,6 +279,7 @@ public class ContactDAO {
 				dto.setCtTel(rs.getString("ctTel"));
 				dto.setCtEmail(rs.getString("ctEmail"));
 				dto.setCtDate(rs.getString("ctDate"));
+				dto.setFin(rs.getInt("fin"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
