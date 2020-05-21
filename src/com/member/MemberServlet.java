@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/member/*")
+
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -122,18 +124,18 @@ public class MemberServlet extends HttpServlet {
 		dto.setUserId(req.getParameter("userId"));
 		dto.setUserPwd(req.getParameter("userPwd"));
 		dto.setUserName(req.getParameter("userName"));
-		String Tel1 = req.getParameter("Tel1");
-		String Tel2 = req.getParameter("Tel2");
-		String Tel3 = req.getParameter("Tel3");
-		if (Tel1.length() != 0 && Tel2.length() != 0 && Tel3.length() != 0) {
-			dto.setUserTel(Tel1 + "-" + Tel2 + "-" + Tel3);
+		String tel1 = req.getParameter("tel1");
+		String tel2 = req.getParameter("tel2");
+		String tel3 = req.getParameter("tel3");
+		if (tel1.length() != 0 && tel2.length() != 0 && tel3.length() != 0) {
+			dto.setUserTel(tel1 + "-" + tel2 + "-" + tel3);
 		}
-		String Email1 =req.getParameter("Eamil1");
-		String Email2 =req.getParameter("Eamil2");
-		if (Email1.length() != 0 && Email2.length() != 0) {
-			dto.setUserEmail(Email1 + "@" + Email2);
+		String email1 =req.getParameter("email1");
+		String email2 =req.getParameter("email2");
+		if (email1.length() != 0 && email2.length() != 0) {
+			dto.setUserEmail(email1 + "@" + email2);
 		}
-		dto.setUserBirth(req.getParameter("birth"));
+		dto.setUserBirth(req.getParameter("userBirth"));
 		
 		try {
 			dao.insertMember(dto);
@@ -263,7 +265,4 @@ public class MemberServlet extends HttpServlet {
 	private void userIdCheck(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
-	
-	
-	
 }

@@ -76,7 +76,7 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "INSET INTO member(userId,userPwd,userName,userTel,userEmail,userBirth) VALUES(?,?,?,?,?,?)";
+			sql = "INSERT INTO member(userId,userPwd,userName,userTel,userEmail,userBirth) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, dto.getUserId());

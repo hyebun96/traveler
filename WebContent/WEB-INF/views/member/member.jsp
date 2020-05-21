@@ -74,24 +74,24 @@ function memberOk() {
         return;
     }
     
-    str = f.Tel1.value;
+    str = f.tel1.value;
 	str = str.trim();
     if(!str) {
         alert("전화번호를 입력하세요. ");
-        f.Tel1.focus();
+        f.tel1.focus();
         return;
     }
 
-    str = f.Tel2.value;
+    str = f.tel2.value;
 	str = str.trim();
     if(!str) {
         alert("전화번호를 입력하세요. ");
-        f.Tel2.focus();
+        f.tel2.focus();
         return;
     }
     if(!/^(\d+)$/.test(str)) {
         alert("숫자만 가능합니다. ");
-        f.Tel2.focus();
+        f.tel2.focus();
         return;
     }
 
@@ -139,14 +139,14 @@ function changeEmail() {
 	    
     var str = f.selectEmail.value;
     if(str!="direct") {
-        f.Email2.value=str; 
-        f.Email2.readOnly = true;
-        f.Email1.focus(); 
+        f.email2.value=str; 
+        f.email2.readOnly = true;
+        f.email1.focus(); 
     }
     else {
-        f.Email2.value="";
-        f.Email2.readOnly = false;
-        f.Email1.focus();
+        f.email2.value="";
+        f.email2.readOnly = false;
+        f.email1.focus();
     }
 }
 
@@ -154,6 +154,33 @@ function userIdCheck() {
 	// 아이디 중복 검사
 	
 }
+
+//날짜입력검증
+function isValidDateFormat(data) { 
+	var p=/^[12][0-9]{3}[\.|\-|\/]?[0-9]{2}[\.|\-|\/]?[0-9]{2}$/; //0-9까지 3개
+	if(!p.test(data)){
+		return false;
+	}
+	//g을 안붙여주면 첫번째 일치하는것만 없애줌.ex>2020-04-04에서 202004-04가 됨
+	p = /(\.)|(\-)|(\/)/g;
+	data=data.replace(p,"");  
+	
+	var y=parseInt(data.substr(0,4));
+	var m=parseInt(data.substr(4,2));
+	if(m<1 || m>12){
+		return false;
+	}
+	
+	var d=parseInt(data.substr(6));
+	var lastDay=(new Date(y,m,0)).getDate();
+	if(d<1||d>lastDay){
+		f.birth.focus();
+		return false;
+	}
+	return true;
+}
+
+
 </script>
 </head>
 <body>
@@ -180,8 +207,7 @@ function userIdCheck() {
 					</td>
 				</tr> 
 			</c:if>			
-	  	
-			
+	  			
 		<input type="text" name="userId" value="${dto.userId}" class="imo" required="required" maxlength="15" pattern="[a-zA-Z0-9]+" placeholder="UserID" ${mode=="update" ? "readonly='readonly' ":""}>
 		<span data-placeholder="UserID"></span>	
 		 
@@ -194,9 +220,9 @@ function userIdCheck() {
          <input type="text" name="userName" value="${dto.userName}" required="required" maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="UserName" ${mode=="update" ? "readonly='readonly' ":""}>
          <span data-placeholder="UserName"></span> 
           
-		 <span data-placeholder="Tel"></span>	
+		 <span data-placeholder="tel"></span>	
 
-		 <select class="selectField" id="Tel1" name="Tel1" style="float: left;">
+		 <select class="selectField" id="tel1" name="tel1" style="float: left;">
 			<option value="">선 택</option>
 			<option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
 			<option value="011" ${dto.tel1=="011" ? "selected='selected'" : ""}>011</option>
@@ -206,12 +232,12 @@ function userIdCheck() {
 			<option value="019" ${dto.tel1=="019" ? "selected='selected'" : ""}>019</option>
 		 </select>		 
 			<p style="float: left; margin-top: 12px;">&nbsp;-&nbsp;</p>
-	     <input type="text" name="Tel2" value="${dto.Tel2}" required="required" maxlength="11" pattern="[0-9]+" placeholder="Tel" style="float:left; width: 142px;">
+	     <input type="text" name="tel2" value="${dto.tel2}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 142px;">
 			<p style="float: left; margin-top: 12px;">&nbsp;-&nbsp;</p>
-	     <input type="text" name="Tel3" value="${dto.Tel3}" required="required" maxlength="11" pattern="[0-9]+" placeholder="Tel" style="float:left; width: 143px;">
+	     <input type="text" name="tel3" value="${dto.tel3}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 143px;">
 
 		 <select name="selectEmail" onchange="changeEmail();" class="selectField" style="float: left;">
-			<option value="">선 택</osption>
+			<option value="">선 택</option>
 			<option value="naver.com" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>네이버</option>
 			<option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>한메일</option>
 			<option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>핫메일</option>
@@ -219,13 +245,13 @@ function userIdCheck() {
 			<option value="direct">입력</option>
 		 </select>
 		 
-         <input class="email" type="text" name="Email1" value="${dto.Email1}" required="required" size="13" maxlength="30" pattern="[a-zA-Z0-9]+" placeholder="Email" style="float:left; width: 140px;">
+         <input class="email" type="text" name="email1" value="${dto.email1}" required="required" size="13" maxlength="30" pattern="[a-zA-Z0-9]+" placeholder="email" style="float:left; width: 140px;">
          	<p style="float: left; margin-top: 12px;">@</p>
-         <input class="email" type="text" name="Email2" value="${dto.Email2}" required="required" size="13" maxlength="30" pattern="[a-zA-Z0-9]+" placeholder="Email" readonly="readonly" style="float:left; width: 150px;">
+         <input class="email" type="text" name="email2" value="${dto.email2}" required="required" size="13" maxlength="30" pattern="[a-zA-Z0-9]+" placeholder="email" readonly="readonly" style="float:left; width: 150px;">
 	     <span data-placeholder="Email"></span>	
 
 
-	     <input type="text" name="userBirth" value="${dto.userBirth}" required="required" maxlength="10" pattern="[0-9]+" placeholder="Birth[ YYMMDD ]">
+	     <input type="text" name="userBirth" value="${dto.userBirth}" required="required" maxlength="10" pattern="[0-9]+" placeholder="Birth[ YYYY-MM-DD ]">
 		 <span data-placeholder="Birth"></span>	
 
 		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();"style="margin-left: 10px;">${mode=="created"?"sign up":"정보수정"}</button>

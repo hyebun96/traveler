@@ -4,8 +4,8 @@ public class MemberDTO {
 	private String userId;
 	private String userPwd;
 	private String userName;
-	private String userTel,Tel1,Tel2,Tel3;
-	private String userEmail,Email1,Email2;
+	private String userTel,tel1,tel2,tel3;
+	private String userEmail,email1,email2;
 	private String userBirth;
 	private String imageFilename;
 	
@@ -34,22 +34,22 @@ public class MemberDTO {
 		this.userTel = userTel;
 	}
 	public String getTel1() {
-		return Tel1;
+		return tel1;
 	}
 	public void setTel1(String tel1) {
-		Tel1 = tel1;
+		this.tel1 = tel1;
 	}
 	public String getTel2() {
-		return Tel2;
+		return tel2;
 	}
 	public void setTel2(String tel2) {
-		Tel2 = tel2;
+		this.tel2 = tel2;
 	}
 	public String getTel3() {
-		return Tel3;
+		return tel3;
 	}
 	public void setTel3(String tel3) {
-		Tel3 = tel3;
+		this.tel3 = tel3;
 	}
 	public String getUserEmail() {
 		return userEmail;
@@ -58,16 +58,16 @@ public class MemberDTO {
 		this.userEmail = userEmail;
 	}
 	public String getEmail1() {
-		return Email1;
+		return email1;
 	}
 	public void setEmail1(String email1) {
-		Email1 = email1;
+		this.email1 = email1;
 	}
 	public String getEmail2() {
-		return Email2;
+		return email2;
 	}
 	public void setEmail2(String email2) {
-		Email2 = email2;
+		this.email2 = email2;
 	}
 	public String getUserBirth() {
 		return userBirth;
@@ -75,6 +75,14 @@ public class MemberDTO {
 	public void setUserBirth(String userBirth) {
 		this.userBirth = userBirth;
 	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	
+
 	
 	
 }
