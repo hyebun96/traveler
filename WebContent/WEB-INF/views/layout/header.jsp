@@ -67,12 +67,12 @@ $(function(){
 		
 		            <li>
 		                <a href="<%=cp%>/contact/contact.do">CONTACT</a> 
-		                <c:if test="${sessionScope.member.userId=='admin'}">
 		                <ul>
-		                	<li><a href="<%=cp%>/contact/contact.do" style="padding-left: 270px;">CONTACT</a></li>
-		                	<li><a href="<%=cp%>/contact/list.do" >CONTACT목록확인</a></li>
-		                </ul>   
+		                	<li><a href="<%=cp%>/contact/contact.do" style="padding-left: 275px;">CONTACT</a></li>
+		                <c:if test="${sessionScope.member.userId=='admin'}">
+		                	<li><a href="<%=cp%>/contact/list.do" >목록확인</a></li>
 		                </c:if> 
+		                </ul>   
 		            </li>  
 		            
 		        </ul>
