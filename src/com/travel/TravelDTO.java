@@ -11,7 +11,6 @@ public class TravelDTO {
 	private int likeNum;		// 좋아요 수
 	private String imageFilename;	// 이미지 파일
 	
-	
 	public int getNum() {
 		return num;
 	}
@@ -54,19 +53,19 @@ public class TravelDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	
-	public String getImageFilename() {
-		return imageFilename;
-	}
-	public void setImageFilename(String imageFilename) {
-		this.imageFilename = imageFilename;
-	}
+
 	public int getLikeNum() {
 		return likeNum;
 	}
 	public void setLikeNum(int likeNum) {
 		this.likeNum = likeNum;
 	}
-	
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+
 	
 }

@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +19,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.member.SessionInfo;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.util.FileManager;
 import com.util.MyUploadServlet;
 
@@ -97,6 +94,9 @@ public class TravelServlet extends MyUploadServlet {
 		else
 			list = dao.listTravel();
 
+		
+		
+		
 		String query = "";
 		String listUrl = "";
 		String articleUrl = "";
@@ -168,13 +168,11 @@ public class TravelServlet extends MyUploadServlet {
 		if (map != null) {
 			String[] saveFilenames = map.get("saveFilenames");
 			
-			for(String s : saveFilenames) {
-				dto.setImageFilename(s);				
-				dao.insertImage(dto);
+			for(String s : saveFilenames) {		
+				dao.insertImage(s);
 			}
 			
 		}
-
 		
 		resp.sendRedirect(cp + "/travel/seoul.do");
 	}
@@ -224,17 +222,23 @@ public class TravelServlet extends MyUploadServlet {
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
 		dto.setUserName(req.getParameter("name"));
-		dto.setImageFilename(req.getParameter("imageFilename"));
-
-		Part p = req.getPart("upload");
-		Map<String, String> map = doFileUpload(p, pathname);
+		
+		dao.deleteTravel(num,"update");
+		
+		List<Part> list = new ArrayList<Part>();
+		
+		for (Part part : req.getParts()) {
+        	list.add(part);
+        }
+		
+		Map<String, String[]> map = doFileUpload(list, pathname);
 		if (map != null) {
-			if (req.getParameter("imageFilename").length() != 0 && req.getParameter("imageFilename") != null) {
-				FileManager.doFiledelete(pathname, req.getParameter("imageFilename"));
+			String[] saveFilenames = map.get("saveFilenames");
+			
+			for(String s : saveFilenames) {
+				dto.setImageFilename(s);
+				dao.updateImage(dto);
 			}
-
-			String imageFilename = map.get("saveFilename");
-			dto.setImageFilename(imageFilename);
 		}
 
 		dao.updateTravel(dto);
@@ -264,17 +268,42 @@ public class TravelServlet extends MyUploadServlet {
 			return;
 		}
 		
-
 		if (dto.getImageFilename() != null && dto.getImageFilename().length() != 0)
 			FileManager.doFiledelete(pathname, dto.getImageFilename());
 
-		dao.deleteTravel(num);
+		dao.deleteTravel(num,null);
 
 		resp.sendRedirect(cp + "/travel/seoul.do");
 
 	}
 
 	protected void deleteFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		String cp = req.getContextPath();
+		TravelDAO dao = new TravelDAO();
+		
+		int num = Integer.parseInt(req.getParameter("num"));
+		
+		TravelDTO dto = dao.readTravel(num);
+		if(dto==null) {
+			resp.sendRedirect(cp+"/travel/seoul.do");
+			return;
+		}
+		
+		if(!info.getUserId().equals(dto.getUserId())) {
+			resp.sendRedirect(cp+"/travel/seoul.do");
+			return;
+		}
+		
+		FileManager.doFiledelete(pathname,dto.getImageFilename());
+		
+		req.setAttribute("dto", dto);
+		
+		req.setAttribute("mode", "update");
+		
+		forward(req,resp,".WEB-INF/views/travel/created.jsp");
 		
 	}
 	
