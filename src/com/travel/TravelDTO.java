@@ -6,9 +6,9 @@ public class TravelDTO {
 	private String userName;	// 사용자 이름
 	private String userId;		// 사용자 아이디
 	private String place;		// 여행지
-	private String infomation;	// 여행자 정보	
+	private String information;	// 여행자 정보	
 	private String created;		// 생성일
-	private int hitCount;		// 좋아요 수
+	private int likeNum;		// 좋아요 수
 	private String imageFilename;	// 이미지 파일
 	
 	
@@ -42,11 +42,11 @@ public class TravelDTO {
 	public void setPlace(String place) {
 		this.place = place;
 	}
-	public String getInfomation() {
-		return infomation;
+	public String getInformation() {
+		return information;
 	}
-	public void setInfomation(String infomation) {
-		this.infomation = infomation;
+	public void setInformation(String information) {
+		this.information = information;
 	}
 	public String getCreated() {
 		return created;
@@ -54,17 +54,18 @@ public class TravelDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	public int getHitCount() {
-		return hitCount;
-	}
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
-	}
+	
 	public String getImageFilename() {
 		return imageFilename;
 	}
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
+	}
+	public int getLikeNum() {
+		return likeNum;
+	}
+	public void setLikeNum(int likeNum) {
+		this.likeNum = likeNum;
 	}
 	
 	

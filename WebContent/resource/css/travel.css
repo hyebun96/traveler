@@ -31,7 +31,7 @@
 	height: 350px;
 }
 
-.main #cre{
+.main #cr{
 	width: 100px; 
 	height: 25px; 
 	border-radius: 10px; 
@@ -110,3 +110,21 @@
 	text-decoration: none;
 	font-size: 50px;
 }
+
+.main #up{
+	height: 25px; 
+	margin-right: 70px;
+}
+
+.main #up button{
+	width: 100px; 
+	height: 25px; 
+	border-radius: 10px; 
+	background: white;
+	float: right;
+	margin: 5px;
+}
+
+
+
+

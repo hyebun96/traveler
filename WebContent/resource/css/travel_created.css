@@ -103,3 +103,13 @@
 	text-decoration: none;
 	font-size: 50px;
 }
+
+.main .box .button-box{
+	width : 100px;
+	float: right;
+}
+
+.main .button-box . btn{
+	color: white;
+	width: 70px;
+}

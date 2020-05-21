@@ -26,34 +26,42 @@
 	<div class=main>
 	
 	<%--히든 메뉴 관리자 --%>
-	<p><button type="button" id="cre">글등록</button></p>
-	
-	<c:forEach var= "dto" items="${list}">
+		<c:if test="${sessionScope.member.userId == 'admin'}">
+			<p><button type="button" id="cr" onclick="javascript:location.href='<%=cp%>/travel/created.do'">글등록</button></p>
+		</c:if>
 		<div class="weather">
-			<img alt="" src="resource/img/cloudy.png">
+			<img alt="" src="<%=cp %>/resource/img/cloudy.png">
 			<p style="margin-top: 20px; display: block;">seoul weather(℃)</p>		
 			<p style="font-size: 12px; padding-top: 10px;">${date}</p>	<%--April 21, 2020 --%>
 		</div>
-		<div class="box">
-			<div class="content-box">
-				<img alt="" src="<%=cp%>/uploads/travel/${dto.imageFilename}">
-			</div>
-			<div class="content-box2">
-				<img alt="" src="<%=cp %>/resource/img/user.png">
-				<span>${dto.userName}</span><br>		
-				<span>${dto.place} | ${dto.created}</span>														
-				<div class="content">${dto.infomation}</div>
+	
+		<c:forEach var= "dto" items="${list}">
+			<div class="box">
+				<div class="content-box">
+					<img alt="" src="<%=cp%>/uploads/travel/${dto.imageFilename}">
+				</div>
+				<div class="content-box2">
+					<img alt="" src="<%=cp %>/resource/img/user.png">
+					<span>${dto.userName}</span><br>		
+					<span>${dto.place} | ${dto.created}</span>														
+					<div class="content">${dto.information}</div>
+				</div>
+				<div id="up">
+						<c:if test="${sessionScope.member.userId == 'admin'}" >
+							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/delete.do?num=${dto.num}'">글삭제</button>
+							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/update.do?num=${dto.num}'">글수정</button>
+						</c:if>
+					</div>
+				<br>
+				<div class="like-box">
+					
+					<hr style="clear: both;">
+					<span>${dto.likeNum} Like&nbsp;&nbsp;&nbsp;Only read</span><span
+						style="float: right;"><a href="javascript:location.href='<%=cp%>/travel/like.do?num=${dto.num}'">♥</a></span>
+				</div>
 			</div>
 			<br>
-			<div class="like-box">
-				<hr>
-				<span>0 Like&nbsp;&nbsp;&nbsp;Only read</span><span
-					style="float: right;"><a href="#">♥</a></span>
-			</div>
-		</div>
-		<br>
-	</c:forEach>
-
+		</c:forEach>
 	</div>
 
 	<div class="footer">
