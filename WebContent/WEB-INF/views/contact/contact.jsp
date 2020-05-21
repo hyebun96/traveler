@@ -37,6 +37,13 @@ function sendOk() {
         f.ctSubject.focus();
         return;
     }
+    
+	str = f.ctSort.value;
+    if(!str) {
+        alert("분류를 선택하세요. ");
+        f.ctSort.focus();
+        return;
+    }
 
 	str = f.ctContent.value;
     if(!str) {
@@ -44,10 +51,11 @@ function sendOk() {
         f.ctContent.focus();
         return;
     }
-
-
-	f.action="<%=cp%>/contact/contact_ok.do";
-
+    
+    if(confirm("자료를 전송하시겠습니까 ? ")){
+		f.action="<%=cp%>/contact/contact_ok.do";
+    	
+    }
     f.submit();
 }
 </script>
@@ -89,10 +97,10 @@ function sendOk() {
 			<li class="col-input">
 				  <select name="ctSort" class="selectField">
 						<option value="">::선 택::</option>
-						<option value="sugg">제안</option>
-						<option value="edit">정보수정요청</option>
-						<option value="ad">광고문의</option>
-						<option value="etc">기타</option>
+						<option value="sugg" ${dto.ctSort=="sugg" ? "selected='selected'" : ""}>제안</option>
+						<option value="edit"  ${dto.ctSort=="edit" ? "selected='selected'" : ""}>정보수정요청</option>
+						<option value="ad" ${dto.ctSort=="ad" ? "selected='selected'" : ""}>광고문의</option>
+						<option value="etc" ${dto.ctSort=="etc" ? "selected='selected'" : ""}>기타</option>
 				  </select>				
 			</li>
 		</ul>

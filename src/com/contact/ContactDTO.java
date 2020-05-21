@@ -1,7 +1,7 @@
 package com.contact;
 
 public class ContactDTO {
-	private int ctNum;
+	private int ctNum, fin;
 	private String ctSubject;
 	private String ctContent;
 	private String ctName;
@@ -15,6 +15,12 @@ public class ContactDTO {
 	}
 	public void setCtNum(int ctNum) {
 		this.ctNum = ctNum;
+	}	
+	public int getFin() {
+		return fin;
+	}
+	public void setFin(int fin) {
+		this.fin = fin;
 	}
 	public String getCtSubject() {
 		return ctSubject;

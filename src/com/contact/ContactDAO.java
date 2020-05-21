@@ -125,9 +125,9 @@ public class ContactDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append("SELECT ctSort, ctNum, ctName, ctSubject, TO_CHAR(ctDate, 'YYYY-MM-DD') ctDate, ");
+			sb.append("SELECT ctSort, ctNum, ctName, ctSubject, TO_CHAR(ctDate, 'YYYY-MM-DD') ctDate, fin ");
 			sb.append(" FROM contact ");
-			sb.append(" ORDER BY num DESC ");
+			sb.append(" ORDER BY ctNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 			
 			pstmt=conn.prepareStatement(sb.toString());
@@ -142,6 +142,7 @@ public class ContactDAO {
 				dto.setCtName(rs.getString("ctName"));
 				dto.setCtSubject(rs.getString("ctSubject"));
 				dto.setCtDate(rs.getString("ctDate"));
+				dto.setFin(rs.getInt("fin"));
 				
 				list.add(dto);
 			}
@@ -171,7 +172,7 @@ public class ContactDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append("SELECT ctSort, ctNum, ctName, ctSubject, TO_CHAR(ctDate, 'YYYY-MM-DD') ctDate, ");
+			sb.append("SELECT ctSort, ctNum, ctName, ctSubject, TO_CHAR(ctDate, 'YYYY-MM-DD') ctDate, fin ");
 			sb.append(" FROM contact ");
 			if(condition.equals("ctDate")) {
 				keyword=keyword.replaceAll("-", "");
@@ -179,7 +180,7 @@ public class ContactDAO {
 			} else {
 				sb.append(" WHERE INSTR("+condition+", ?) >=1");
 			}			
-			sb.append(" ORDER BY num DESC ");
+			sb.append(" ORDER BY ctNum DESC ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 			
 			pstmt=conn.prepareStatement(sb.toString());
@@ -195,6 +196,7 @@ public class ContactDAO {
 				dto.setCtName(rs.getString("ctName"));
 				dto.setCtSubject(rs.getString("ctSubject"));
 				dto.setCtDate(rs.getString("ctDate"));
+				dto.setFin(rs.getInt("fin"));
 				
 				list.add(dto);
 			}
@@ -263,6 +265,29 @@ public class ContactDAO {
 		}		
 		return dto;
 	}	
+	
+	public int updateContact(int ctNum) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			sql="UPDATE contact SET fin=1 WHERE ctNum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ctNum);
+			result=pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return result;
+	}
 	
 	public int deleteContact(int ctNum) {
 		int result = 0;
