@@ -109,7 +109,7 @@ ul.nav li:hover > ul li a:hover {
     width:1080px;
     height: 40px;
     clear: both;
-    margin: 0 auto;
+    margin: 25px auto;
     border-bottom: 1px solid #cccccc;
 }
 
