@@ -22,7 +22,7 @@ $(function(){
 });
 </script>
 
-	<div class="header-top">
+	<div class="header-top">  
 		<div class="header-center">
 			<p style="margin: 2px;">
 				<a href="main.html" style="text-decoration: none;">
