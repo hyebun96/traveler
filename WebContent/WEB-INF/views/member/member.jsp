@@ -15,7 +15,23 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/signup.css" type="text/css">
 
-
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+$(function() {  //엔터치면 다음으로 넘어가게함.
+	$("input").not($(":button")).not($(":reset")).keypress(function(evt) { //input에서 keypress가 발생했으면(버튼과 리셋은 빼고) 
+		if(evt.keyCode==13){
+			var fields=$(this).parents("form,body").find("button,input,select,textarea"); //form또는 body 안에 모든 button,input,select,textarea 찾아라
+			var index=fields.index(this);
+			
+			if(index>-1 && (index+1)<fields.length){
+				fields.eq(index+1).focus();
+			}
+			return false; //엔터 이벤트 취소
+		}
+	});
+	
+});
+</script>
 
 <script type="text/javascript"> /* 자바스크립트는  웹브라우저에 의해 실행되어지는거,전세계적으로 많이 씀*/
 
@@ -30,7 +46,7 @@ function memberOk() {
 		f.userId.focus();
 		return;
 	}
-	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(str)) { 
+	if(!/^[a-z][a-z0-9_]{3,10}$/i.test(str)) { 
 		alert("아이디는 5~10자이며 첫글자는 영문자이어야 합니다.");
 		f.userId.focus();
 		return;
@@ -126,8 +142,11 @@ function memberOk() {
 
     var mode="${mode}";
     if(mode=="created") {
+    	alert("회원가입하시겠습니까?");
     	f.action = "<%=cp%>/member/member_ok.do";
+   
     } else if(mode=="update") {
+    	alert("수정하시겠습니까?");
     	f.action = "<%=cp%>/member/update_ok.do";
     }
 
@@ -192,22 +211,22 @@ function isValidDateFormat(data) {
 
 <div class="main">
 	<div class="signup">
-		<h1>Sign&nbsp;up</h1>
+		<h1>${title}</h1>	
 		<br>
 	</div>
 	
 	<div class="index">
-	  <form name="memberForm" action="javascript:send();" method="post">
+
+	  <form name="memberForm" action="javascript:send();" method="post" enctype="multipart/form-data">
+
+<!-- 파일처리하려함. 아직 못함. -->
 	  	<input type="file" name="upload" accept="image/*" class="btn" size="53" style="height: 25px;">
-			<c:if test="${mode=='update'}">
-				<tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
-					<td width="100" bgcolor="#eeeeee" style="text-align: center;">등록이미지</td>
-					<td style="padding-left:10px;"> 
-						<img src="<%=cp%>/uploads/photo/${dto.imageFilename}" onclick="imageViewer('<%=cp%>/${dto.imageFilename}');">
-					</td>
-				</tr> 
-			</c:if>			
-	  			
+			<c:if test="${not empty dto.saveFilename}">
+				${dto.originalFilename}
+				| <a href="javascript:deleteFile('${dto.num}')">삭제</a>
+			</c:if>
+
+
 		<input type="text" name="userId" value="${dto.userId}" class="imo" required="required" maxlength="15" pattern="[a-zA-Z0-9]+" placeholder="UserID" ${mode=="update" ? "readonly='readonly' ":""}>
 		<span data-placeholder="UserID"></span>	
 		 
@@ -254,10 +273,22 @@ function isValidDateFormat(data) {
 	     <input type="text" name="userBirth" value="${dto.userBirth}" required="required" maxlength="10" pattern="[0-9]+" placeholder="Birth[ YYYY-MM-DD ]">
 		 <span data-placeholder="Birth"></span>	
 
-		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();"style="margin-left: 10px;">${mode=="created"?"sign up":"정보수정"}</button>
+		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();"style="margin-left: 10px;">${mode=="created"?"sign up":"수정완료"}</button>
 		<button class="indexBtn" type="reset">다시입력</button>
 		<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/';">${mode=="created"?"가입취소":"수정취소"}</button>
+	 	
+	 		
+	 	<%-- 	
+	 		<c:if test="${mode=='update'}">
+				<input type="hidden" name="num" value="${dto.num}">
+				<input type="hidden" name="fileSize" value="${dto.filesize}">
+				<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
+				<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
+			</c:if> 
 
+			<input type="hidden" name="rows" value="${rows}">
+		 --%>
+	
      </form>
    </div>   
 </div>

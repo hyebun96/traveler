@@ -17,7 +17,7 @@ public class MemberDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append("SELECT userId,userPwd,userName,userTel,userEmail");
+			sb.append("SELECT imageFilename,userId,userPwd,userName,userTel,userEmail");
 			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
 			sb.append(" FROM member");
 			sb.append(" WHERE userId=?");
@@ -27,6 +27,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				dto = new MemberDTO();
+				dto.setImageFilename(rs.getString("imageFilename"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
@@ -76,7 +77,7 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "INSERT INTO member(userId,userPwd,userName,userTel,userEmail,userBirth) VALUES(?,?,?,?,?,?)";
+			sql = "INSERT INTO member(userId,userPwd,userName,userTel,userEmail,userBirth,imageFilename) VALUES(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, dto.getUserId());
@@ -85,6 +86,7 @@ public class MemberDAO {
 			pstmt.setString(4, dto.getUserTel());
 			pstmt.setString(5, dto.getUserEmail());
 			pstmt.setString(6, dto.getUserBirth());
+			pstmt.setString(7, dto.getImageFilename());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -105,15 +107,15 @@ public class MemberDAO {
 		String sql;
 
 		try {
-			sql = "UPDATE member SET userPwd=?,userTel=?,userEamil=?,userBirth=? modify_date=SYSDATE WHERE userId=?";
+			sql = "UPDATE member SET userPwd=?,userTel=?,userEmail=?,userBirth=?,imageFilename=? WHERE userId=?";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, dto.getUserPwd());
-			pstmt.setString(2, dto.getUserName());
-			pstmt.setString(3, dto.getUserTel());
-			pstmt.setString(4, dto.getUserEmail());
-			pstmt.setString(5, dto.getUserBirth());
+			pstmt.setString(2, dto.getUserTel());
+			pstmt.setString(3, dto.getUserEmail());
+			pstmt.setString(4, dto.getUserBirth());
+			pstmt.setString(5, dto.getImageFilename());
 			pstmt.setString(6, dto.getUserId());
 
 			pstmt.executeUpdate();
