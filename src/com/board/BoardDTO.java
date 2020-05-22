@@ -2,6 +2,7 @@ package com.board;
 
 public class BoardDTO {
 	private int num;
+	
 	private String name;
 	private String id;
 	private String title;
@@ -57,4 +58,5 @@ public class BoardDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
+	
 }

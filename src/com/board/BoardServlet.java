@@ -213,10 +213,10 @@ public class BoardServlet extends HttpServlet {
 			return;
 		}
 		
-		if(! dto.getId().equals(info.getUserId())) {
-			resp.sendRedirect(cp+"/board/board.do?page="+page);
-			return;
-		}
+//		if(! dto.getId().equals(info.getUserId())) {
+//			resp.sendRedirect(cp+"/board/board.do?page="+page);
+//			return;
+//		}
 
 		req.setAttribute("dto", dto);
 		req.setAttribute("mode", "update");
