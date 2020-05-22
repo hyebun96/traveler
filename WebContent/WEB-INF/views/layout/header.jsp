@@ -26,7 +26,7 @@ $(function(){
 		<div class="header-center">
 			<p style="margin: 2px;">
 				<a href="main.html" style="text-decoration: none;">
-				<img alt="HOME" src="img/logo.PNG" width="80" style="margin: 12px 16px">
+				<img alt="HOME" src="<%=cp %>/resource/img/logo.jpg" width="80" style="margin: 12px 16px">
 				</a>
 			</p>
 		</div>
