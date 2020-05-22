@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+
+.viewqna{
+	width: 800px;
+	margin: 50px auto;
+}
+
+.view-table{
+	clear:both;
+	width: 100%;
+	border-collapse: collapse;
+	border-bottom: 1px solid black;
+	text-align: left;
+	border-spacing: 0;
+}
+
+.qna-title{
+	text-align: left;
+}
+
+.number{
+	text-align: center;
+}
+.view-table tr{
+	height: 35px;
+	border-bottom: 1px solid black;
+}
+
+.viewbox{
+	background: #c8c8c8;
+	width: 15%;
+}
+
+.viewcontent{
+	width: 35%;
+}

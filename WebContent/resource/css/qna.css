@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+
+.qna{
+	width: 800px;
+	margin: 50px auto;
+}
+
+.qna-table{
+	clear:both;
+	width: 100%;
+	border-collapse: collapse;
+	border-bottom: 1px solid black;
+	text-align: center;
+	border-spacing: 0;
+	height: 30px;
+}
+
+.qna-title{
+	text-align: left;
+
+}
+
+.number{
+	text-align: center;
+	margin: 20px auto;
+}
+.qna-table tr{
+	border-bottom: 1px solid black;
+	height: 30px;
+}
+
