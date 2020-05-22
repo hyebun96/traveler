@@ -25,8 +25,8 @@ $(function(){
 	<div class="header-top">  
 		<div class="header-center">
 			<p style="margin: 2px;">
-				<a href="main.html" style="text-decoration: none;">
-				<img alt="HOME" src="<%=cp %>/resource/img/logo.jpg" width="100" style="margin: 12px 16px; background-size: cover;" >
+				<a href="<%=cp %>/main.do" style="text-decoration: none;">
+				<img alt="HOME" src="<%=cp %>/resource/img/logo.jpg" width="37%" style="margin: 12px 16px; background-size: cover;" >
 				</a>
 			</p>
 		</div>
@@ -60,7 +60,7 @@ $(function(){
 		                <a href="<%=cp %>/notice/notice.do">BOARD</a>
 		                <ul>
 		                	<li><a href="<%=cp %>/notice/notice.do"  style="padding-left: 190px;">공지사항</a></li>
-		                	<li><a href="#">Q&amp;A</a></li>
+		                	<li><a href="<%=cp%>/qna/list.do">Q&amp;A</a></li>
 		                	<li><a href="<%=cp %>/board/board.do">자유게시판</a></li>
 		                </ul>
 		            </li>
