@@ -14,17 +14,21 @@
 <link rel="stylesheet" href="<%=cp %>/resource/css/travel_created.css" type="text/css">
 <link rel="stylesheet" href="<%=cp %>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp %>/resource/css/main.css" type="text/css">
+<style type="text/css">
+
+button{
+	width: 100px; 
+	height: 25px; 
+	border-radius: 10px; 
+	background: white;
+	float: right;
+	margin: 5px;
+}
+</style>
 
 <script type="text/javascript">
     function sendOk(num) {
         var f = document.travelForm;
-
-    	var str = f.name.value;
-        if(!str) {
-            alert("작성자를 입력하세요. ");
-            f.name.focus();
-            return;
-        }
 
     	str = f.place.value;
         if(!str) {
@@ -46,11 +50,13 @@
     }
     
 	<c:if test="${mode=='update'}">
-	    function deleteFile(num) {
-	  	  var url="<%=cp%>/travel/deleteFile.do?num="+num+"&page=${page}&rows=${rows}";
+	    function deleteFile(filename,num) {
+	  	  var url="<%=cp%>/travel/deleteFile.do?filename="+filename+"&num="+num;
 	  	  location.href=url;
 	    }
 	</c:if>
+	
+	
 </script>
 </head>
 <body>
@@ -63,28 +69,30 @@
 	
 	<div class=main>
 		<form name="travelForm" method="post" enctype="multipart/form-data">
-			<div class="box">
 				<div class="content-box">
 				<%-- 	<img alt="" src="<%=cp%>/uploads/travel/${dto.imageFilename}">--%>
 				</div>
 				<div class="content-box2">
 					<img alt="" src="<%=cp %>/resource/img/user.png">
-					<span style="padding: 5px;">작성자 <input type="text" name="name" value="${dto.userId}"></span>			
+					<span style="padding: 5px;">&nbsp;작성자 ${dto.userId}(${dto.userName})</span><br><br>				
 					<span>장&nbsp;&nbsp;&nbsp;소 <input type="text" name="place" value="${dto.place}"></span>														
-					<div class="content">정보 <br>
-						<textarea name="information" style="width: 90%; height: 100px;">${dto.information}</textarea>
+					<br><div class="content">정보 <br>
+						<textarea name="information" style="width: 95%; height: 100px;">${dto.information}</textarea>
 					</div>
-					<input multiple="multiple" type="file" name="upload" style="margin-left: 70px;">${dto.imageFilename}
+					<input multiple="multiple" type="file" name="upload" style="margin-left: 70px;">
+					<c:forEach var="filename" items="${dto.imageFilename}">${filename}
+					            <input type="hidden" value="${filename}"> 
+					             | <a href="javascript:deleteFile('${filename}','${dto.num}');">삭제</a>
+					</c:forEach>   
 				</div>
 				<br>
 				<hr>
 				<div class="button-box">
 					<input type="hidden" name="imageFilename" value="${dto.imageFilename}"> 
-					<button type="button" class="btn" onclick="javascript:sendOk('${dto.num}');">${mode=='update'?'수정완료':'등록하기'}</button>
-					<button type="reset" class="btn">다시입력</button>
 					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/travel/seoul.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+					<button type="reset" class="btn">다시입력</button>
+					<button type="button" class="btn" onclick="javascript:sendOk('${dto.num}');">${mode=='update'?'수정완료':'등록하기'}</button>
 				</div>
-			</div>
 			<br>
 		</form>
 	</div>

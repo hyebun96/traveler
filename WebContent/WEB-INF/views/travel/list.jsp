@@ -38,7 +38,9 @@
 		<c:forEach var= "dto" items="${list}">
 			<div class="box">
 				<div class="content-box">
-					<img alt="" src="<%=cp%>/uploads/travel/${dto.imageFilename}">
+					<c:forEach var="s" items="${dto.imageFilename}">
+						<img alt="" src="<%=cp%>/uploads/travel/${s}">
+					</c:forEach>
 				</div>
 				<div class="content-box2">
 					<img alt="" src="<%=cp %>/resource/img/user.png">
@@ -54,7 +56,6 @@
 					</div>
 				<br>
 				<div class="like-box">
-					
 					<hr style="clear: both;">
 					<span>${dto.likeNum} Like&nbsp;&nbsp;&nbsp;Only read</span><span
 						style="float: right;"><a href="javascript:location.href='<%=cp%>/travel/like.do?num=${dto.num}'">♥</a></span>

@@ -25,7 +25,7 @@ import com.util.MyUploadServlet;
 @WebServlet("/travel/*")
 @MultipartConfig
 public class TravelServlet extends MyUploadServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String pathname;
 
@@ -53,8 +53,8 @@ public class TravelServlet extends MyUploadServlet {
 			delete(req, resp);
 		} else if (uri.indexOf("deleteFile.do") != -1) {
 			deleteFile(req, resp);
-		} else if(uri.indexOf("like.do") != -1){
-			like(req,resp);
+		} else if (uri.indexOf("like.do") != -1) {
+			like(req, resp);
 		}
 
 	}
@@ -94,9 +94,6 @@ public class TravelServlet extends MyUploadServlet {
 		else
 			list = dao.listTravel();
 
-		
-		
-		
 		String query = "";
 		String listUrl = "";
 		String articleUrl = "";
@@ -126,62 +123,70 @@ public class TravelServlet extends MyUploadServlet {
 	}
 
 	protected void createdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session =req.getSession();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		if(!info.getUserId().equals("admin")) {
-			resp.sendRedirect(req.getContextPath()+"/travel/seoul.do");
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		if (!info.getUserId().equals("admin")) {
+			resp.sendRedirect(req.getContextPath() + "/travel/seoul.do");
 			return;
 		}
-		
+
+		TravelDTO dto = new TravelDTO();
+
+		dto.setUserId(info.getUserId());
+		dto.setUserName(info.getUserName());
+
+		req.setAttribute("dto", dto);
 		req.setAttribute("mode", "created");
 		forward(req, resp, "/WEB-INF/views/travel/created.jsp");
 	}
 
-	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
+	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		String cp = req.getContextPath();
 
-		HttpSession session=req.getSession(); 
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
-		if(!info.getUserId().equals("admin")) {
-			resp.sendRedirect(cp+"/travel/seoul.do"); return; 
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		if (!info.getUserId().equals("admin")) {
+			resp.sendRedirect(cp + "/travel/seoul.do");
+			return;
 		}
-		 
+
 		TravelDTO dto = new TravelDTO();
 		TravelDAO dao = new TravelDAO();
 
 		dto.setUserId(info.getUserId());
-		
+
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
-		
+
 		dao.insertTravel(dto);
-		
+
 		List<Part> list = new ArrayList<Part>();
-		
+
 		for (Part part : req.getParts()) {
-        	list.add(part);
-        }
-		
+			list.add(part);
+		}
+
 		Map<String, String[]> map = doFileUpload(list, pathname);
 		if (map != null) {
 			String[] saveFilenames = map.get("saveFilenames");
-			
-			for(String s : saveFilenames) {		
-				dao.insertImage(s);
+
+			for (String s : saveFilenames) {
+				dao.insertImage(null,s);
 			}
-			
+
 		}
-		
+
 		resp.sendRedirect(cp + "/travel/seoul.do");
 	}
 
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
+
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
 		TravelDAO dao = new TravelDAO();
 		String cp = req.getContextPath();
 
@@ -193,9 +198,9 @@ public class TravelServlet extends MyUploadServlet {
 			resp.sendRedirect(cp + "/travel/seoul.do");
 			return;
 		}
-		
-		if(!info.getUserId().equals(dto.getUserId())){
-			resp.sendRedirect(cp+"/travel/seoul.do");
+
+		if (!info.getUserId().equals(dto.getUserId())) {
+			resp.sendRedirect(cp + "/travel/seoul.do");
 			return;
 		}
 
@@ -222,22 +227,22 @@ public class TravelServlet extends MyUploadServlet {
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
 		dto.setUserName(req.getParameter("name"));
-		
-		dao.deleteTravel(num,"update");
-		
-		List<Part> list = new ArrayList<Part>();
-		
-		for (Part part : req.getParts()) {
-        	list.add(part);
-        }
-		
-		Map<String, String[]> map = doFileUpload(list, pathname);
-		if (map != null) {
-			String[] saveFilenames = map.get("saveFilenames");
-			
-			for(String s : saveFilenames) {
-				dto.setImageFilename(s);
-				dao.updateImage(dto);
+
+		if (req.getParts() != null) {
+
+			List<Part> list = new ArrayList<Part>();
+
+			for (Part part : req.getParts()) {
+				list.add(part);
+			}
+
+			Map<String, String[]> map = doFileUpload(list, pathname);
+			if (map != null) {
+				dto.setImageFilename(map.get("saveFilenames"));
+
+				for (String s : dto.getImageFilename()) {
+					dao.insertImage(dto,s);
+				}
 			}
 		}
 
@@ -248,9 +253,9 @@ public class TravelServlet extends MyUploadServlet {
 	}
 
 	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
 		TravelDAO dao = new TravelDAO();
 		String cp = req.getContextPath();
 
@@ -262,59 +267,67 @@ public class TravelServlet extends MyUploadServlet {
 			resp.sendRedirect(cp + "/travel/seoul.do");
 			return;
 		}
-		
-		if(! info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp+"/travel/seoul.do?");
+
+		if (!info.getUserId().equals(dto.getUserId())) {
+			resp.sendRedirect(cp + "/travel/seoul.do?");
 			return;
 		}
-		
-		if (dto.getImageFilename() != null && dto.getImageFilename().length() != 0)
-			FileManager.doFiledelete(pathname, dto.getImageFilename());
 
-		dao.deleteTravel(num,null);
+		if (dto.getImageFilename() != null ) {
+			for(int i=0; i<dto.getImageFilename().length; i++) {
+				FileManager.doFiledelete(pathname, dto.getImageFilename()[i]);
+			}
+		}
+
+		dao.deleteTravel(num);
 
 		resp.sendRedirect(cp + "/travel/seoul.do");
 
 	}
 
 	protected void deleteFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
 		String cp = req.getContextPath();
 		TravelDAO dao = new TravelDAO();
-		
+
 		int num = Integer.parseInt(req.getParameter("num"));
-		
+		String filename = req.getParameter("filename");
+
 		TravelDTO dto = dao.readTravel(num);
-		if(dto==null) {
-			resp.sendRedirect(cp+"/travel/seoul.do");
+
+		if (dto == null) {
+			resp.sendRedirect(cp + "/travel/seoul.do");
 			return;
 		}
-		
-		if(!info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp+"/travel/seoul.do");
+
+
+		if (!info.getUserId().equals(dto.getUserId())) {
+			resp.sendRedirect(cp + "/travel/seoul.do");
 			return;
 		}
+
+		dao.deleteImage(filename);
+		FileManager.doFiledelete(pathname, filename);
 		
-		FileManager.doFiledelete(pathname,dto.getImageFilename());
+		dto = dao.readTravel(num);
 		
 		req.setAttribute("dto", dto);
-		
 		req.setAttribute("mode", "update");
-		
-		forward(req,resp,".WEB-INF/views/travel/created.jsp");
-		
+
+		forward(req, resp, "/WEB-INF/views/travel/created.jsp?num="+num);
+
 	}
-	
+
 	protected void like(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String cp = req.getContextPath();
 		TravelDAO dao = new TravelDAO();
-		
+
 		int num = Integer.parseInt(req.getParameter("num"));
-		
+
 		dao.likeInsert(num);
-		
+
 		resp.sendRedirect(cp + "/travel/seoul.do");
 	}
 

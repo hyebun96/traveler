@@ -9,7 +9,7 @@ public class TravelDTO {
 	private String information;	// 여행자 정보	
 	private String created;		// 생성일
 	private int likeNum;		// 좋아요 수
-	private String imageFilename;	// 이미지 파일
+	private String imageFilename[];	// 이미지 파일
 	
 	public int getNum() {
 		return num;
@@ -60,12 +60,13 @@ public class TravelDTO {
 	public void setLikeNum(int likeNum) {
 		this.likeNum = likeNum;
 	}
-	public String getImageFilename() {
+	public String[] getImageFilename() {
 		return imageFilename;
 	}
-	public void setImageFilename(String imageFilename) {
+	public void setImageFilename(String[] imageFilename) {
 		this.imageFilename = imageFilename;
 	}
+	
 
 	
 }

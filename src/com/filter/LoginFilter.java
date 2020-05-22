@@ -55,7 +55,7 @@ public class LoginFilter implements Filter{
 		
 		String [] uris = {
 				"/index.jsp", "/main.do",
-				"/board/board.do", "/member/login.do", "/member/login_ok.do", "/member/member.do", "/member/member_ok.do",
+				"/board/board.do", "/member/login.do", "/member/login_ok.do", "/member/member.do", "/member/member_ok.do", 
 				"/resource/**"
 		};
 		

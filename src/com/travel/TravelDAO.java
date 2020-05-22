@@ -118,7 +118,9 @@ public class TravelDAO {
 				dto.setInformation(rs.getString("information"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserName(rs.getString("username"));	
-				dto.setImageFilename(rs.getString("saveFilename"));
+				if(rs.getString("saveFilename")!=null) {
+					dto.setImageFilename(rs.getString("saveFilename").split(","));
+				}
 				dto.setCreated(rs.getString("created"));
 				dto.setLikeNum(rs.getInt("likeNum"));
 				
@@ -182,7 +184,9 @@ public class TravelDAO {
 				dto.setPlace(rs.getString("place"));
 				dto.setInformation(rs.getString("information"));
 				dto.setUserId(rs.getString("userId"));
-				dto.setImageFilename(rs.getString("saveFilename"));
+				if(rs.getString("saveFilename")!=null) {
+					dto.setImageFilename(rs.getString("saveFilename").split(","));
+				}
 				dto.setCreated(rs.getString("created"));
 				dto.setLikeNum(rs.getInt("likeNum"));
 				
@@ -267,7 +271,7 @@ public class TravelDAO {
 				dto.setUserId(rs.getString("userid"));
 				dto.setUserName(rs.getString("userName"));
 				if(rs.getString("saveFilename")!=null) {
-					dto.setImageFilename(rs.getString("saveFilename"));
+					dto.setImageFilename(rs.getString("saveFilename").split(","));
 				}
 			}
 
@@ -320,32 +324,20 @@ public class TravelDAO {
 		return result;
 	}
 	
-	public int deleteTravel(int num, String mode) {
+	public int deleteTravel(int num) {
 		int result=0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
 			
-			sql = "DELETE FROM travelFile WHERE travelNum=? ";
-				
+			sql = "DELETE FROM travel WHERE travelNum= ?";
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			result = pstmt.executeUpdate();
-				
-			if(mode==null) {	
-				
-				pstmt.close();
-				pstmt = null;
 			
-			
-				sql = "DELETE FROM travel WHERE travelNum= ?";
 				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				result = pstmt.executeUpdate();
-			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -387,16 +379,29 @@ public class TravelDAO {
 		return result;
 	}
 	
-	public int insertImage(String s) {
+	public int insertImage(TravelDTO dto ,String s) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql = "INSERT INTO travelFile(fNum,travelNum,saveFilename) VALUES(tFile_SEQ.NEXTVAL, TRAVEL_SEQ.CURRVAL, ?)";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, s);
+			if(dto==null) {
+				sql = "INSERT INTO travelFile(fNum,travelNum,saveFilename) VALUES(tFile_SEQ.NEXTVAL, TRAVEL_SEQ.CURRVAL, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, s);
+				
+				result = pstmt.executeUpdate();
+				
+			}else {
+				
+				sql = "INSERT INTO travelFile(fNum,travelNum,saveFilename) VALUES(tFile_SEQ.NEXTVAL, ?, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, dto.getNum());
+				pstmt.setString(2, s);
+			}
 			
 			result = pstmt.executeUpdate();
 			
@@ -413,19 +418,19 @@ public class TravelDAO {
 		return result;
 	}
 	
-	public int updateImage(TravelDTO dto) {
+	public int deleteImage(String name) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql = "INSERT INTO travelFile(fNum,travelNum,saveFilename) VALUES(tFile_SEQ.NEXTVAL, ?, ?)";
 			
+			sql = "DELETE FROM travelFile WHERE saveFilename=? ";
+				
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getNum());
-			pstmt.setString(2, dto.getImageFilename());
-			
+			pstmt.setString(1, name);
 			result = pstmt.executeUpdate();
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -438,6 +443,5 @@ public class TravelDAO {
 			}
 		}
 		return result;
-	}
-	
+	}	
 }
