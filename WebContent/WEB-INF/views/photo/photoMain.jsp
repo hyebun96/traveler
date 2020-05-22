@@ -22,24 +22,24 @@
 	height: 250px;
 	padding: 10px 5px 10px;
 	margin: 5px 5px;
-	border: 1px solid #DAD9FF;
+	
 }
 .subject {
      width:180px;
-     height:25px;
-     line-height:25px;
-     margin:5px auto;
-     border-top: 1px solid #DAD9FF;
+     height:35px;
+     line-height:35px;
+     margin:10px auto;
+     border-top: 1px solid #4CAF50;
      display: inline-block;
      white-space:nowrap;
      overflow:hidden;
      text-overflow:ellipsis;
      cursor: pointer;
-     color: red;
+     color: black;
 }
 
-#photomainuser tr{
-	margin: 50px auto;
+.font{
+	margin: 30px 10px 1px 450px;
 }
 
 </style>
@@ -56,14 +56,15 @@ function photoarticle(photoNum) {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
+	<div class="font"><font color="458B74" face="궁서체" size="16px" style="text-align: center;"><i> Gallery </i></font></div>
 <div class="photoselect">
-	<table class="photomainuser" style="text-align: center; margin: 100px 30px 10px 250px; float: left;">
+	<table class="photomainuser" style="text-align: center; margin: 30px 30px 10px 250px; float: left;">
 		<tr align="left"  class="photomember">
 			<td>
-				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do'" class="btn1"> 전체보기  </button>
+				<button type="button" value="nam"style="width: 100%; " onclick="javascript:location.href='<%=cp%>/photo/photoMain.do'" class="btn1"> ALL  </button>
 			</td>
 		</tr>
-		<tr height="30px;"></tr>
+		<tr height="20px;"></tr>
 		
 
 		<tr align="left" class="photomember">
@@ -71,25 +72,25 @@ function photoarticle(photoNum) {
 				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=nam'"class="btn1"> 남상현</button>
 			</td>
 		</tr>
-		<tr height="30px;"></tr>
+		<tr height="20px;"></tr>
 		<tr align="left" class="photomember">
 			<td>
 				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=kim'"class="btn1"> 김종완</button>
 			</td>
 		</tr>
-		<tr height="30px;"></tr>
+		<tr height="20px;"></tr>
 		<tr align="left" class="photomember">
 			<td>
 				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=lee'"class="btn1"> 이다혜</button>
 			</td>
 		</tr>
-		<tr height="30px;"></tr>
+		<tr height="20px;"></tr>
 		<tr align="left" class="photomember">
 			<td>
 				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=jun'"class="btn1"> 전미주</button>
 			</td>
 		</tr>
-		<tr height="30px;"></tr>
+		<tr height="20px;"></tr>
 		<tr align="left" class="photomember">
 			<td>
 				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=jung'"class="btn1"> 정혜분</button>
@@ -97,17 +98,17 @@ function photoarticle(photoNum) {
 		</tr>
 		
 		
-		<tr height="30px;"></tr>
-		<tr height="30px;"></tr>
+		<tr height="50px;"></tr>
+		
 		<tr height="30">
 			<td align="center">
-			          <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/photo/created.do';" style="width: 100%">사진올리기</button>
+			          <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/photo/created.do';" style="width: 100%">Photo_Upload</button>
 			</td>
 		</tr>
 	</table>
 </div>
 
-	<table style="width: 60%; margin: 100px 10px 100px 10px; border-spacing: 0px;" class="photozone">
+	<table style="width: 60%; margin: 30px 10px 100px 10px; border-spacing: 0px;" class="photozone">
 	<c:forEach var="dto" items="${photoMain}" varStatus="status">
                  <c:if test="${status.index==0}">
                        <tr>

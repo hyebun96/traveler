@@ -36,7 +36,7 @@
 .btn {
 	background-color: white; 
  	 color: black; 
- 	 border: 2px solid black;
+ 	 border: 2px solid #424242;
 }
 
 .btn1 {
@@ -62,7 +62,7 @@
 
 .btn1 {
 	background-color: white; 
- 	 color: black; 
+ 	 color: #458B74;
  	 border: 2px solid #4CAF50;
  	     font-weight: bold;
 }

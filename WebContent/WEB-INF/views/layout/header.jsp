@@ -51,7 +51,7 @@ $(function(){
 		            <li>
 		                <a href="#">GALLERY</a>
 		                <ul>
-		                    <li><a href="#" style="padding-left: 100px;">사진</a></li>
+		                    <li><a href="<%=cp %>/photo/photoMain.do" style="padding-left: 100px;">사진</a></li>
 		                    <li><a href="#">동영상</a></li>
 		                </ul>
 		            </li>

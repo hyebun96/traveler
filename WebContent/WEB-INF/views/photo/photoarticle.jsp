@@ -12,6 +12,8 @@
 <meta charset="UTF-8">
 <title>spring</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/photo.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
@@ -50,59 +52,57 @@ function updatePhoto(photoNum) {
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 	
-<div class="container">
-    <div class="body-container" style="width: 700px;">
+<div class="photoarticle1">
+    <div class="photoarticle2" style="width: 700px; margin: 100px 10px 10px 600px;">
+        <font color="458B74" face="궁서체" size="16px" style="margin: 30px auto; text-align: center;"><i> Photo Content </i></font>
         
-        <div>
-			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse; border-top: 1px solid #4CAF50;">
+			<tr height="40" style="border-top: 1px solid #4CAF50; border-bottom: 1px solid #4CAF50;">
 			    <td colspan="2" align="center">
-				   ${dto.subject}
+				  <b style="font-size: 16px;"> ${dto.subject}</b>
 			    </td>
 			</tr>
 			
-			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 : ${dto.userName}
+			<tr height="40" style="border-bottom: 1px solid #4CAF50;">
+			    <td width="50%" align="left" style="padding-left: 5px; font-size: 16px;">
+			       Name : ${dto.userName}
 			    </td>
-			    <td width="50%" align="right" style="padding-right: 5px;">
-			        zz
-			    </td>
+			    
 			</tr>
 	
 			<tr>
-			  <td colspan="2" align="left" style="padding: 10px 5px;">
-			      <img src="<%=cp%>/uploads/photo/${dto.imageFilename}" style="max-width:100%; height:auto; resize:both;">
+			  <td colspan="2" align="left" style="padding: 10px 5px; margin: 50px auto;">
+			      <img src="<%=cp%>/uploads/photo/${dto.imageFilename}" style="max-width:100%; height:300px; resize:both;">
 			   </td>
 			</tr>
 						
-			<tr style="border-bottom: 1px solid #cccccc;">
-			  <td colspan="2" align="left" style="padding: 0px 5px 10px;" style="min-height: 30px;">
+			<tr style="border-bottom: 1px solid #4CAF50;" height="40">
+			  <td colspan="2" align="left" style="padding: 0px 5px 20px; font-size: 16px; margin: 50px auto;" height="40">
 			      ${dto.content}
 			   </td>
 			</tr>
 			</table>
 			
-			<table style="width: 100%; margin: 0px auto 20px; border-spacing: 0px;">
+			<table style="width: 100%; margin: 40px auto 20px; border-spacing: 0px;">
 			<tr height="45">
 			    <td width="300" align="left">
 			       <c:if test="${sessionScope.member.userId==dto.userId}">				    
-			          <button type="button" class="btn" onclick="updatePhoto('${dto.photoNum}');">수정</button>
+			          <button type="button" class="btn1" onclick="updatePhoto('${dto.photoNum}');">수정</button>
 			       </c:if>
 			       <c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">				    
-			          <button type="button" class="btn" onclick="deletePhoto('${dto.photoNum}');">삭제</button>
+			          <button type="button" class="btn1" onclick="deletePhoto('${dto.photoNum}');">삭제</button>
 			       </c:if>
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?page=${page}';">리스트</button>
+			        <button type="button" class="btn1" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?page=${page}';">List</button>
 			    </td>
 			</tr>
 			</table>
         </div>
         
     </div>
-</div>
+
 
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
