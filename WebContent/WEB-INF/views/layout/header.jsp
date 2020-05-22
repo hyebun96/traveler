@@ -89,8 +89,8 @@ $(function(){
 			       	 	&nbsp;
 			       		<a href="<%=cp%>/member/logout.do" style="font-size: 12px;">Logout</a>
 		            	&nbsp;
-			       	<!--  	<a href="<%=cp%>/member/pwd.do?mode=update" style="font-size: 12px;">Mypage</a> -->
-			       		<a href="<%=cp%>/member/mypage.do?id=${sessionScope.member.userId}" style="font-size: 12px;">Mypage</a>
+			       	<a href="<%=cp%>/member/pwd.do?mode=update" style="font-size: 12px;">Mypage</a>
+			       	<!--  <a href="<%=cp%>/member/mypage.do?id=${sessionScope.member.userId}" style="font-size: 12px;">Mypage</a>-->
 			       		
 			      </c:if>
 			       	</li>	

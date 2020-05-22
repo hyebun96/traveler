@@ -229,7 +229,7 @@ public class MemberServlet extends MyUploadServlet {
 			}
 			req.setAttribute("mode", mode);
 			req.setAttribute("message", "<span style='color:red;'>패스워드가 일치하지 않습니다.</span>");
-			forward(req, resp, "/WEB-INF/views/member/pwd.jsp");
+			forward(req, resp, "/WEB-INF/views/member/mypage.jsp");
 			return;
 		}
 		
@@ -354,7 +354,25 @@ public class MemberServlet extends MyUploadServlet {
 		
 	}
 	private void myPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session=req.getSession();
+		String cp=req.getContextPath();
+				
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		// 로그아웃상태이면
+		if(info==null) {
+			resp.sendRedirect(cp+"/member/login.do");
+			return;
+		}
+				
+		String mode=req.getParameter("mode");
+		if(mode.equals("update")) {
+			req.setAttribute("title", "회원 정보 수정");
+		}else {
+			req.setAttribute("title", "회원 탈퇴");
+		}
 		
+		req.setAttribute("mode", mode);
+		forward(req, resp, "/WEB-INF/views/member/pwd.jsp");	
 	}
 	
 }
