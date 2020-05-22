@@ -100,7 +100,7 @@ function deleteBoard(num) {
 				<td colspan="3" style="min-height: 50px;">
 				<c:forEach var="dto" items="${list }">
 					<c:if test="${not empty list}">
-						<a href="<%=cp%>/notice/download.do?num=${dto.num}">${dto.originalFileName }</a><br>
+						<a href="<%=cp%>/notice/download.do?fileNum=${dto.fileNum}">${dto.originalFileName }</a><br>
 					</c:if>
 					
 				</c:forEach>

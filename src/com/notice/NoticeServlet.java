@@ -2,6 +2,7 @@ package com.notice;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
@@ -350,7 +351,21 @@ public class NoticeServlet extends MyUploadServlet {
 	}
 
 	protected void download(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		NoticeDAO dao = new NoticeDAO();
+		int fileNum = Integer.parseInt(req.getParameter("fileNum"));
+		NoticeDTO dtofile = dao.readFileNum(fileNum);
+		
+		boolean b = false;
+		if(dtofile != null) {
+			b = FileManager.doFiledownload(dtofile.getSaveFileName(),
+					dtofile.getOriginalFileName(), pathname, resp);
+		}
+		
+		if(! b) {
+			resp.setContentType("text/html; charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			out.print("<script>alert('파일 다운로드가 불가능합니다.'); history.back();</script>");
+		}
 	}
 
 	protected void deleteFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

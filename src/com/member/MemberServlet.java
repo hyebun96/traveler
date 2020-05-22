@@ -56,6 +56,8 @@ public class MemberServlet extends MyUploadServlet {
 			delete(req, resp);
 		} else if(uri.indexOf("myPage.do")!=-1) {
 			myPage(req, resp);
+		} else if(uri.indexOf("myPageSubmit")!=-1) {
+			myPageSubmit(req,resp);
 		}
 	}
 //로그인 폼
@@ -247,7 +249,7 @@ public class MemberServlet extends MyUploadServlet {
 			
 			return;
 		}		
-		resp.sendRedirect(cp+"/member/update.do");
+		resp.sendRedirect(cp+"/member/myPage.do");
 	}
 	
 //회원정보수정	
@@ -353,26 +355,46 @@ public class MemberServlet extends MyUploadServlet {
 	private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
+//myPage(내정보 폼)	
 	private void myPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session=req.getSession();
+		MemberDAO dao=new MemberDAO();
 		String cp=req.getContextPath();
-				
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		// 로그아웃상태이면
-		if(info==null) {
+		
+		if(info==null) { //로그아웃 된 경우
 			resp.sendRedirect(cp+"/member/login.do");
 			return;
 		}
-				
+		
+		// DB에서 해당 회원 정보 가져오기
+		MemberDTO dto=dao.readMember(info.getUserId());
+		if(dto==null) {
+			session.invalidate();
+			resp.sendRedirect(cp);
+			return;
+		}
+		
 		String mode=req.getParameter("mode");
 		if(mode.equals("update")) {
 			req.setAttribute("title", "회원 정보 수정");
 		}else {
 			req.setAttribute("title", "회원 탈퇴");
 		}
-		
 		req.setAttribute("mode", mode);
-		forward(req, resp, "/WEB-INF/views/member/pwd.jsp");	
+			
+		req.setAttribute("title", "회원 정보 수정");
+		req.setAttribute("dto", dto);
+		req.setAttribute("mode", "update");
+
+		forward(req, resp, "/WEB-INF/views/member/member.jsp");
+	
 	}
+	
+//myPage
+	private void myPageSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	}
+	
 	
 }
