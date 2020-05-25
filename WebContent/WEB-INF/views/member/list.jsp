@@ -38,18 +38,18 @@
 <form name="searchForm" action="<%=cp%>/member/list.do" method="post">
 	<div style="text-align: right;">
 		<select name="condition" style="height: 23px;">
-		
-				<option value="all" ${condition==""?"selected='selected'":"" }>회원전체</option>
-				<option value="userId" ${condition=="userId"?"selected='selected'":"" }>회원이름</option>
-				<option value="userName" ${condition=="userName"?"selected='selected'":"" }>회원아이디</option>
+				<option value="userId" ${condition=="userId"?"selected='selected'":"" }>회원아이디</option>
+				<option value="userName" ${condition=="userName"?"selected='selected'":"" }>회원이름</option>
 		</select>
-			<input type="text" name="keyword" style="vertical-align: bottom; height: 19px;">
-			<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;" onclick="searchList()">검색</button>
-	
+		<input type="text" name="keyword" style="vertical-align: bottom; height: 19px;">
+			<button style="vertical-align: bottom; height: 23px; width: 90px; background: #eee; border: 1px solid #777;" onclick="searchList()">검색</button>
+			<button type = "button" style="vertical-align: bottom; height: 23px; width: 90px; background: #eee; border: 1px solid #777;" onclick="javascript:location.href='<%=cp%>/member/list.do';">새로고침</button>
+			<br>
 	</div>
 </form>
 	
 	<table class="member-table">
+	<br><br>
 		<tr style="border-bottom: 2px solid black;">
 			<td>회원아이디</td>
 			<td>회원이름</td>
@@ -75,7 +75,11 @@
 			</td>
 	   </tr>
 	</table>
-	
+	<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		<tr height="35">
+			<td></td>
+		</tr>
+	</table>
 </div>
 
 <div class="footer">

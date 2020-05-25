@@ -194,7 +194,7 @@ public class MemberDAO {
 	}
 	
   // 글 리스트(목록)
-	public List<MemberDTO> listBoard(int start, int end) {
+	public List<MemberDTO> listBoard(int offset, int rows) {
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 		MemberDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -205,8 +205,11 @@ public class MemberDAO {
 			sb.append("SELECT userId,userPwd,userName,userTel,userEmail");
 			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
 			sb.append(" FROM member");
-			
+			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
+		
 			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, offset);
+			pstmt.setInt(2, rows);
 			
 			rs = pstmt.executeQuery();
 			
@@ -266,11 +269,13 @@ public class MemberDAO {
         String sql;
 
         try {
-        	 if(condition.equalsIgnoreCase("name")) {
-        		sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(name, ? ) = 1 ";
-        	} else {
-        		sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(" + condition + ", ? ) >= 1 ";
-        	}
+			/*
+			 * if(condition.equalsIgnoreCase("userName")) {
+			 * sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(userName, ? ) = 1 "; }
+			 * else { sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(" + condition +
+			 * ", ? ) >= 1 "; }
+			 */
+        	sql="SELECT NVL(COUNT(*),0) FROM member WHERE INSTR("+condition+", ?) >=1";
         	
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1, keyword);
@@ -300,36 +305,24 @@ public class MemberDAO {
     }
 
   // 검색에서 리스트(목록)
-    public List<MemberDTO> listBoard(int start, int end, String condition, String keyword) {
+    public List<MemberDTO> listBoard(int offset, int rows, String condition, String keyword) {
         List<MemberDTO> list=new ArrayList<MemberDTO>();
-
         PreparedStatement pstmt=null;
         ResultSet rs=null;
         StringBuilder sb = new StringBuilder();
 
         try {
-			//sb.append("SELECT * FROM (");
         	sb.append("SELECT userId,userPwd,userName,userTel,userEmail");
 			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
 			sb.append(" FROM member");
+			sb.append(" WHERE INSTR("+condition+", ? ) >=1");
+			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
 		
-			if(condition.equalsIgnoreCase("userId")) {  
-				sb.append("       WHERE userId = ?");
-				sb.append(" ORDER BY userId DESC  ");
-				sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
-
-			} else if(condition.equalsIgnoreCase("userName")){
-				sb.append("       WHERE userName = ?");
-				sb.append(" 		ORDER BY userName DESC  ");
-				sb.append(" 		OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
-			}
-			
-			
 			pstmt=conn.prepareStatement(sb.toString());
             
 			pstmt.setString(1, keyword);
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, start);
+			pstmt.setInt(2, offset);
+			pstmt.setInt(3, rows);
             
             rs=pstmt.executeQuery();
             

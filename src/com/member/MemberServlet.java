@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.notice.NoticeDTO;
 import com.util.FileManager;
 import com.util.MyUploadServlet;
 import com.util.MyUtil;
@@ -35,8 +36,9 @@ public class MemberServlet extends MyUploadServlet {
 		HttpSession session=req.getSession();
 		
 		// 이미지를 저장할 경로(pathname)
-		String root=session.getServletContext().getRealPath("/");
-		pathname=root+"uploads"+File.separator+"photo";
+		String root = session.getServletContext().getRealPath("/");
+     	pathname = root + "uploads" + File.separator + "travel";
+		
 		
 		String uri=req.getRequestURI();
 		if(uri.indexOf("login.do")!=-1) {
@@ -122,7 +124,7 @@ public class MemberServlet extends MyUploadServlet {
 		forward(req, resp, "/WEB-INF/views/member/member.jsp");
 	}
 	
-//회원가입검증	
+//회원가입 완료
 	private void memberSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberDAO dao=new MemberDAO();
 		MemberDTO dto = new MemberDTO();
@@ -146,39 +148,31 @@ public class MemberServlet extends MyUploadServlet {
 		}
 		
 		dto.setUserBirth(req.getParameter("userBirth"));
-		dto.setImageFilename(req.getParameter("imageFilename"));
 	
 		Part p = req.getPart("upload"); 
 		Map<String, String> map = doFileUpload(p,pathname);
-		
 		  
 		 // map이 null이면 던져야함 파일이 없는 것임으로 
 		if(map!=null) { 
 			String saveFilename = map.get("saveFilename");
-			String originalFilename = map.get("originalFilename");
-			long fileSize = p.getSize();
-			  
-			dto.setSaveFilename(saveFilename); 
-			dto.setOriginalFilename(originalFilename);
-			dto.setFilesize(fileSize); 
-			  
 			if(saveFilename!=null) {
-				  
-				try {
-					dto.setImageFilename(saveFilename);
-					dao.insertMember(dto);
-				}catch(Exception e){
-					String message = "회원 가입이 실패 했습니다.";
-								
-					req.setAttribute("title", "Sign up");
-					req.setAttribute("mode", "created");	
-					req.setAttribute("message", message);
-					forward(req, resp, "/WEB-INF/views/member/member.jsp");
-							  
-					return;
-				}
+				dto.setImageFilename(saveFilename);
 			}	  
 		}
+		
+		try {
+			dao.insertMember(dto);
+		}catch(Exception e){
+			String message = "회원 가입이 실패 했습니다.";
+						
+			req.setAttribute("title", "Sign up");
+			req.setAttribute("mode", "created");	
+			req.setAttribute("message", message);
+			forward(req, resp, "/WEB-INF/views/member/member.jsp");
+					  
+			return;
+		}
+		
 		resp.sendRedirect(cp+"/member/main.do");
 	}		 
 
@@ -206,6 +200,7 @@ public class MemberServlet extends MyUploadServlet {
 		req.setAttribute("mode", mode);
 		forward(req, resp, "/WEB-INF/views/member/pwd.jsp");	
 	}
+	
 //패스워드확인	
 	private void pwdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session=req.getSession();
@@ -318,29 +313,21 @@ public class MemberServlet extends MyUploadServlet {
 		}
 		dto.setUserBirth(req.getParameter("userBirth"));
 
-	
 	//파일	
-		if(req.getParameter("filesize")!=null) {
-			dto.setFilesize(Long.parseLong(req.getParameter("filesize")));			
-		}
-		
+
 		dto.setUserId(info.getUserId());
 		
 		Part p =req.getPart("upload");
 		Map<String, String> map = doFileUpload(p, pathname);
 		if(map!=null) {
 			// 기존 파일 삭제
-			if(req.getParameter("saveFilename").length()!=0) {
-				FileManager.doFiledelete(pathname, req.getParameter("saveFilename"));
+			if(req.getParameter("imageFilename").length()!=0) {
+				FileManager.doFiledelete(pathname, req.getParameter("imageFilename"));
 			}
 			
 			//새로운 파일
 			String saveFilename = map.get("saveFilename");
-			String originalFilename = map.get("originalFilename");
-			long size = p.getSize();
-			dto.setSaveFilename(saveFilename);
-			dto.setOriginalFilename(originalFilename);
-			dto.setFilesize(size);
+			dto.setImageFilename(saveFilename);
 		}
 		
 		try {
@@ -349,10 +336,19 @@ public class MemberServlet extends MyUploadServlet {
 		} catch (Exception e) {
 			String message = "회원 수정이 실패 했습니다.";
 			
-			req.setAttribute("title", "update");
+			dto=dao.readMember(info.getUserId());
+			if(dto==null) {
+				session.invalidate();
+				resp.sendRedirect(cp);
+				return;
+			}
+				
+			req.setAttribute("title", "회원 정보 수정");
+			req.setAttribute("dto", dto);
 			req.setAttribute("mode", "update");
 			req.setAttribute("message", message);
-			return;
+			
+			forward(req, resp, "/WEB-INF/views/member/member.jsp");
 		}
 		
 	}
@@ -402,19 +398,14 @@ public class MemberServlet extends MyUploadServlet {
 		// DB에서 해당 회원 정보 가져오기
 		MemberDTO dto = dao.readMember(info.getUserId());
 		
-		
 		if(dto==null) {
 			session.invalidate();
 			resp.sendRedirect(cp);
 			return;
 		}
-		dto.setOriginalFilename(pathname +"/" + dto.getImageFilename());
-		
-		String mode=req.getParameter("mode");
 		
 		req.setAttribute("title", "MyPage");
 		 
-		req.setAttribute("mode", mode);
 		req.setAttribute("dto", dto);	
 
 		forward(req, resp, "/WEB-INF/views/member/myPage.jsp");
@@ -439,11 +430,12 @@ public class MemberServlet extends MyUploadServlet {
 		if(page!=null) {
 			current_page=Integer.parseInt(page);
 		}
-		
+		System.out.println(page);
+		System.out.println(current_page);
 		String condition=req.getParameter("condition");
 		String keyword=req.getParameter("keyword");
 		if(condition==null) {  //condition가 null일때 keyword가 검색이 아님...
-			condition="subject";
+			condition="userId";
 			keyword="";
 		} 
 		//검색버튼 누르면 Post로 넘어옴
@@ -467,35 +459,25 @@ public class MemberServlet extends MyUploadServlet {
 			current_page=total_page;
 		}
 		
-		int start=(current_page-1)*rows+1;
-		int end=current_page*rows;
-		
+		int offset = (current_page - 1) * rows;
+		System.out.println(offset);
 		List<MemberDTO> list;
-		if(keyword.length()==0) {
-			list=dao.listBoard(start, end,condition,keyword);
-		}else {
-			list=dao.listBoard(start, end);
-		}
+		if (keyword.length() != 0)
+			list = dao.listBoard(offset, rows, condition, keyword);
+		else
+			list = dao.listBoard(offset, rows);
 		
 		// 게시물 번호를 재정의, 시퀀스가 삭제되면 중구난방이라서
-		int listNum,n=0;
-		Iterator<MemberDTO> it=list.iterator();
-		while(it.hasNext()) {
-			MemberDTO dto=it.next();
-			listNum=dataCount-(start+n-1);
-			dto.setListNum(listNum);
-			n++;
-		}
-		
 		String query="";
 		if(keyword.length()!=0) {
 			query="condition="+condition+"&keyword="+URLEncoder.encode(keyword,"utf-8");
 		}
-		
+		//페이징처리
 		String listUrl=cp+"/member/list.do";
-		if(query.length()!=0) {
-			listUrl+="?"+query;
+		if (query.length() != 0) {
+			listUrl += "?" + query;
 		}
+		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
 		// DB에서 해당 회원 정보 가져오기
@@ -514,6 +496,8 @@ public class MemberServlet extends MyUploadServlet {
 		req.setAttribute("page", current_page);
 		req.setAttribute("dataCount", dataCount);
 		req.setAttribute("total_page", total_page);
+		req.setAttribute("condition", condition);
+		req.setAttribute("keyword", keyword);
 		
 		forward(req, resp, "/WEB-INF/views/member/list.jsp");
 	}

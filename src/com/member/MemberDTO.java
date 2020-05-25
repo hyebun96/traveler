@@ -8,9 +8,6 @@ public class MemberDTO {
 	private String userEmail,email1,email2;
 	private String userBirth;
 	private String imageFilename;
-	private String saveFilename;
-	private String originalFilename;
-	private long filesize;	
 	private String content;
 	private int viewCount;
 	private String created;
@@ -89,24 +86,6 @@ public class MemberDTO {
 	}
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
-	}
-	public String getSaveFilename() {
-		return saveFilename;
-	}
-	public void setSaveFilename(String saveFilename) {
-		this.saveFilename = saveFilename;
-	}
-	public String getOriginalFilename() {
-		return originalFilename;
-	}
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
-	}
-	public long getFilesize() {
-		return filesize;
-	}
-	public void setFilesize(long filesize) {
-		this.filesize = filesize;
 	}
 	public String getContent() {
 		return content;

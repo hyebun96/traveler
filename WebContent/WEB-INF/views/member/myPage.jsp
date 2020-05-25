@@ -20,14 +20,13 @@
 
 <script type="text/javascript"> 
 
-function memberOk() {
+function memberOk(mode) {
 	var f = document.memberForm;
 	var str;
 
-    var mode="${mode}";
     if(mode=="delete") {
     	alert("탈퇴하시겠습니까?");
-    	f.action = "<%=cp%>/member/member_ok.do";
+    	f.action = "<%=cp%>/member/delete.do";
    
     } else if(mode=="update") {
     	alert("수정하시겠습니까?");
@@ -64,7 +63,7 @@ function memberOk() {
 				| <a href="javascript:deleteFile('${dto.num}')">삭제</a>
 			</c:if> --%>
 
-		<img src="${dto.originalFilename}" />
+		<img src="<%=cp%>/uploads/travel/${dto.imageFilename}" />
 		
 		 <p>
 		 	<font>&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
@@ -94,12 +93,12 @@ function memberOk() {
 			<input type="text" name="userBirth" value="${dto.userBirth}" readonly="readonly" style="width: 80%"/>
 		</p>
 		
-		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();" style="margin-left: 100px;">정보수정</button>
+		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk('update');" style="margin-left: 100px;">정보수정</button>
 		<c:if test="${sessionScope.member.userId=='admin'}">
 		<a href="<%=cp%>/member/list.do"><button class="indexBtn" type="button" name="sendButton">회원리스트</button></a>
 	 	</c:if>
 		<c:if test="${sessionScope.member.userId!='admin'}">
-		<a href="<%=cp%>/member/delete.do"><button class="indexBtn" type="button" name="sendButton" onclick="memberOk();">회원탈퇴</button></a>
+		<a href="<%=cp%>/member/delete.do"><button class="indexBtn" type="button" name="sendButton" onclick="memberOk('delete');">회원탈퇴</button></a>
 	 	</c:if>
      </form>
    </div>   

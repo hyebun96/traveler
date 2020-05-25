@@ -219,14 +219,11 @@ function isValidDateFormat(data) {
 	<div class="index">
 
 	  <form name="memberForm" action="javascript:send();" method="post" enctype="multipart/form-data">
-
-<!-- 파일처리하려함. 아직 못함. -->
-	  	<input type="file" name="upload" accept="image/*" class="btn" size="53" style="height: 25px;">
-			<c:if test="${not empty dto.saveFilename}">
-				${dto.originalFilename}
-				| <a href="javascript:deleteFile('${dto.num}')">삭제</a>
-			</c:if>
-
+		<c:if test="${not empty dto.imageFilename}">
+			<img src="<%=cp%>/uploads/travel/${dto.imageFilename}">  
+		</c:if>
+		<br>
+  		<input type="file" name="upload" value="${dto.imageFilename}" accept="image/*" class="btn" size="53" style="height: 25px;">
 
 		<input type="text" name="userId" value="${dto.userId}" class="imo" required="required" maxlength="15" pattern="[a-zA-Z0-9]+" placeholder="UserID" ${mode=="update" ? "readonly='readonly' ":""}>
 		<span data-placeholder="UserID"></span>	
@@ -280,11 +277,9 @@ function isValidDateFormat(data) {
 			<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/';">가입취소</button>
 	 	</c:if>
 		<c:if test="${mode!='created'}">
+			<input type="hidden" name="imageFilename" value="${dto.imageFilename}">
 			<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/member/myPage.do/';">수정취소</button>
 	 	</c:if>
-	 		
-	 
-
      </form>
    </div>   
 </div>
