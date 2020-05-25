@@ -51,8 +51,8 @@ function updateQna(qnaNum) {
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 
-
 <div class="viewqna">
+	<h3>Q & A</h3>
 		<table class="view-table">
 			<tr style="border-top: 2px solid black;">
 				<td class="viewbox">제목</td>

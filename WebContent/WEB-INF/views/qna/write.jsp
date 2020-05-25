@@ -45,6 +45,7 @@ function sendOk() {
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 <div class="write">
+	<h3>Q & A</h3>
 	<h3 style="text-align: center; margin: 0 auto;">글쓰기</h3>
 	<form name="writeQnaForm" method="post">
 	<div>
@@ -54,7 +55,7 @@ function sendOk() {
 		<br>
 		
 		<label>내용<br>
-			<textarea name="content" rows="15" cols="110" style="resize: none;" >${dto.content}</textarea>
+			<textarea name="content" rows="15" cols="112" style="resize: none;" >${dto.content}</textarea>
 		</label>
 
 	</div>
