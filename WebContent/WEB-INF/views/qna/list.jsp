@@ -98,8 +98,9 @@
 	
 	
 	
-	<div align="right">
-			<button type = "button" onclick="javascript:location.href='<%=cp%>/qna/write.do';">글등록</button>
+	<div>
+		<button type = "button" onclick="javascript:location.href='<%=cp%>/qna/list.do';">새로고침</button>
+		<button type = "button" onclick="javascript:location.href='<%=cp%>/qna/write.do';" style="float: right">글등록</button>
 	</div>
 	
 </div>
