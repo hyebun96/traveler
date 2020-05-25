@@ -38,12 +38,12 @@ $(function(){
 		            <li>
 		                <a href="<%=cp%>/travel/seoul.do">여행지</a>
 		                <ul>
-		                    <li><a href="<%=cp%>/travel/list.do?type='seoul'">수도권</a></li>
-		                    <li><a href="<%=cp%>/travel/list.do?type='gangwon'">강원</a></li>
-		                    <li><a href="<%=cp%>/travel/list.do?type='chungcheon'">충청</a></li>
-		                    <li><a href="<%=cp%>/travel/list.do?type='jeonla'">전라</a></li>
-		                    <li><a href="<%=cp%>/travel/list.do?type='gyeongsang'">경상</a></li>
-		                    <li><a href="<%=cp%>/travel/list.do?type='jeju'">제주</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=seoul">수도권</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=gangwon">강원</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=chungcheon">충청</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=jeonla">전라</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=gyeongsang">경상</a></li>
+		                    <li><a href="<%=cp%>/travel/list.do?type=jeju">제주</a></li>
                     
 		                </ul>
 		            </li>

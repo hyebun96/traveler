@@ -15,9 +15,7 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
 <link rel="stylesheet" href="<%=cp %>/resource/css/write.css" type="text/css">
 
-<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
-<script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
+
 <script type="text/javascript">
 function sendOk() {
     var f = document.writeQnaForm;
@@ -56,7 +54,7 @@ function sendOk() {
 		<br>
 		
 		<label>내용<br>
-			<textarea name="content" rows="15" cols="113" style="resize: none;" >${dto.content}</textarea>
+			<textarea name="content" rows="15" cols="110" style="resize: none;" >${dto.content}</textarea>
 		</label>
 
 	</div>
@@ -68,17 +66,17 @@ function sendOk() {
 
 	<div style="text-align: right;">
 		<c:if test="${mode=='update'}">
-			 <input type="hidden" name="boardNum" value="${dto.boardNum}">
+			 <input type="hidden" name="qnaNum" value="${dto.qnaNum}">
 			 <input type="hidden" name="page" value="${page}">
 			 <input type="hidden" name="condition" value="${condition}">
 			 <input type="hidden" name="keyword" value="${keyword}">
 		</c:if>
 		<c:if test="${mode=='reply'}">
 			  <input type="hidden" name="groupNum" value="${dto.groupNum}">
-			  <input type="hidden" name="orderNo" value="${dto.orderNo}">
 			  <input type="hidden" name="depth" value="${dto.depth}">
-			  <input type="hidden" name="parent" value="${dto.boardNum}">
+			  <input type="hidden" name="parent" value="${dto.qnaNum}">
 			  <input type="hidden" name="page" value="${page}">
+
 		</c:if>
 		<button type="button" onclick="sendOk();">${mode=='update'?'수정':'등록'}</button>
 		<button type="button" onclick="javascript:location.href='<%=cp%>/qna/list.do';">목록으로</button>
@@ -88,7 +86,6 @@ function sendOk() {
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
+
 </body>
 </html>

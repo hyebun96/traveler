@@ -121,7 +121,7 @@ public class QnaServlet extends HttpServlet {
 			listUrl+="?"+query;
 			viewUrl+="&"+query;
 		}
-		
+
 		String paging = util.paging(current_page, total_page, listUrl);
 		
 		req.setAttribute("list", list);
@@ -286,8 +286,11 @@ public class QnaServlet extends HttpServlet {
 			resp.sendRedirect(cp+"/qna/list.do?page="+page);
 			return;
 		}
-		String s= "\n ["+dto.getSubject()+"] 에 대한 답변입니다.\n";
-		dto.setContent("re:"+dto.getContent()+s);
+		String s= "\n --------------------------------original message--------------------------------\n re: ";
+		String s1= "\n --------------------------------------------------------------------------------\n";
+		String s2 = dto.getSubject()+"에 대한 답변입니다.";
+		dto.setContent(s+dto.getContent()+s1);
+		dto.setSubject(s2);
 		req.setAttribute("mode", "reply");
 		req.setAttribute("dto", dto);
 		req.setAttribute("page", page);
@@ -323,7 +326,29 @@ public class QnaServlet extends HttpServlet {
 	}
 	
 	protected void delelte(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String cp = req.getContextPath();
+		QnaDAO dao = new QnaDAO();
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		String page=req.getParameter("page");
+		int qnaNum=Integer.parseInt(req.getParameter("qnaNum"));
+		String condition=req.getParameter("condition");
+		String keyword=req.getParameter("keyword");
+		if(condition==null) {
+			condition="subject";
+			keyword="";
+		}
+		keyword=URLDecoder.decode(keyword, "utf-8");
 
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		dao.deleteQna(qnaNum, info.getUserId());
+		resp.sendRedirect(cp+"/qna/list.do?"+query);
 	}
 
 }

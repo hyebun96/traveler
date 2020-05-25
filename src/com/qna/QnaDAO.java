@@ -146,7 +146,7 @@ public class QnaDAO {
 		
 		try {
 			sb.append("SELECT qnaNum, q.userId, userName, ");
-			sb.append(" subject, content, groupNum, depth, hitCount, ");
+			sb.append(" subject, content, groupNum, depth, parent, hitCount, ");
 			sb.append(" TO_CHAR(qnaDate,'YYYY-MM-DD') qnaDate ");
 			sb.append(" FROM qna q JOIN member m ON q.userId=m.userId ");
 			sb.append(" ORDER BY groupNum DESC, depth ASC ");
@@ -167,6 +167,7 @@ public class QnaDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setGroupNum(rs.getInt("groupNum"));
 				dto.setDepth(rs.getInt("depth"));
+				dto.setParent(rs.getInt("parent"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setQnaDate(rs.getString("qnaDate"));
 				
@@ -201,7 +202,7 @@ public class QnaDAO {
 		
 		try {
 			sb.append("SELECT qnaNum, q.userId, userName, ");
-			sb.append(" subject, content, groupNum, depth, hitCount, ");
+			sb.append(" subject, content, groupNum, depth, parent, hitCount, ");
 			sb.append(" TO_CHAR(qnaDate,'YYYY-MM-DD') qnaDate ");
 			sb.append(" FROM qna q JOIN member m ON q.userId=m.userId ");
 			if(condition.equals("write")) {
@@ -232,6 +233,7 @@ public class QnaDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setGroupNum(rs.getInt("groupNum"));
 				dto.setDepth(rs.getInt("depth"));
+				dto.setParent(rs.getInt("parent"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setQnaDate(rs.getString("qnaDate"));
 				
@@ -353,6 +355,38 @@ public class QnaDAO {
 			}
 		}		
 		return result;		
+	}
+	
+	public int deleteQna(int qnaNum, String userId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		String sql;
+		
+		try {
+			if(userId.equals("admin")) {
+				sql="DELETE FROM qna WHERE qnaNum=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, qnaNum);
+				result=pstmt.executeUpdate();
+			} else {
+				sql="DELETE FROM qna WHERE qnaNum=? AND userId=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, qnaNum);
+				pstmt.setString(2, userId);
+				result=pstmt.executeUpdate();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return result;
 	}
 
 
