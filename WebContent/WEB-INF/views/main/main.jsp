@@ -52,7 +52,7 @@
 	
 	<hr style="clear: both">
   
-	<img src="img/mainimg2.jpg" style="height: 550px;">	
+	<img src="<%=cp %>/resource/img/mainimg2.jpg" style="height: 550px;">	
 		<br><br><br><br>
 	<div class=main-title>				
 		<h3>나에게로 떠나는 여행에 오신걸 환영합니다 .</h3>
@@ -60,7 +60,7 @@
 
 	<p>일상 탈출을 위한 여행</p>
 	<p>지금 바로 떠나는 국내여행</p>	
-	<br>
+	<br><br><br>
 	<div class="main-box1">
 		<table style="height: 100%; table-layout: fixed;" class="board-table">
 			<tr style="border-bottom: 2px solid black;" >
@@ -85,8 +85,8 @@
 		
 	</div>
 	<div class="main-box2" >
-		<a href="galleryphoto.html">
-		갤러리
+		<a href="<%=cp %>/photo/photoMain.do">
+		<img src="<%=cp %>/resource/img/Nam.PNG" style="height: 300px;">	
 		</a>
 	</div>
 </div>
