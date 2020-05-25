@@ -10,6 +10,6 @@
 	<a href="#">Forecast</a>&nbsp;&nbsp;&nbsp;
 	<a href="#">Event</a>&nbsp;&nbsp;&nbsp;
 	© 나에게로떠나는여행 Corp.&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="#"> <img alt="facebook" src="img/facebook.png" width="20px" height="20px"></a>&nbsp;
-	<a href="https://www.instagram.com/cutyprettykong/"> <img alt="instagram" src="img/insta.png"></a>&nbsp;
-	<a href="#"> <img alt="twitter" src="img/twitter.png"> </a>
+	<a href="#"> <img alt="facebook" src="<%=cp%>/resource/img/facebook.png"></a>&nbsp;
+	<a href="https://www.instagram.com/cutyprettykong/"> <img alt="instagram" src="<%=cp%>/resource/img/insta.png"></a>&nbsp;
+	<a href="#"> <img alt="twitter" src="<%=cp%>/resource/img/twitter.png"> </a>
