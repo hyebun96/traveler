@@ -21,7 +21,7 @@
 	width: 210px;
 	height: 250px;
 	padding: 10px 5px 10px;
-	margin: 5px 5px;
+	margin: 5px 15px;
 	
 }
 .subject {
@@ -39,8 +39,14 @@
 }
 
 .font{
-	margin: 30px 10px 1px 450px;
+	margin: 20px 10px 30px 100px;
 }
+
+.photoselect{
+	margin: 10px auto;
+	width: 1080px;
+}
+
 
 </style>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -56,9 +62,9 @@ function photoarticle(photoNum) {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
-	<div class="font"><font color="458B74" face="궁서체" size="16px" style="text-align: center;"><i> Gallery </i></font></div>
-<div class="photoselect">
-	<table class="photomainuser" style="text-align: center; margin: 30px 30px 10px 250px; float: left;">
+<div class="photoselect" >
+	<div class="font"><font color="458B74" face="궁서체" size="16px"><i> Gallery </i></font></div>
+	<table class="photomainuser" style="text-align: center; width: 6%; height: 610px; float: left;">
 		<tr align="left"  class="photomember">
 			<td>
 				<button type="button" value="nam"style="width: 100%; " onclick="javascript:location.href='<%=cp%>/photo/photoMain.do'" class="btn1"> ALL  </button>
@@ -106,9 +112,8 @@ function photoarticle(photoNum) {
 			</td>
 		</tr>
 	</table>
-</div>
 
-	<table style="width: 60%; margin: 30px 10px 100px 10px; border-spacing: 0px;" class="photozone">
+	<table style="margin: 30px 10px 10px 120px; border-spacing: 0px; height: 610px; float: left;" class="photozone">
 	<c:forEach var="dto" items="${photoMain}" varStatus="status">
                  <c:if test="${status.index==0}">
                        <tr>
@@ -144,6 +149,7 @@ function photoarticle(photoNum) {
 			</td>
 		</tr>
 			</table>           
+</div>
 			
 			
 <div class="footer">
