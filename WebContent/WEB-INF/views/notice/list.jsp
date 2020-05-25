@@ -102,10 +102,12 @@
 	</table>
 	
 	
-	
-	<div align="right">
-			<button type = "button" onclick="writeNotice();">글등록</button>
-	</div>
+	<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		<tr height="35">
+			<td><button type = "button" onclick="javascript:location.href='<%=cp%>/notice/notice.do';">새로고침</button></td>
+			<td align="right"><button type = "button" onclick="writeNotice();">글등록</button></td>
+		</tr>
+	</table>
 	
 </div>
 
