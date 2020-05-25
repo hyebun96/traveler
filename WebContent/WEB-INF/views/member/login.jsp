@@ -61,6 +61,7 @@ function sendLogin() {
 		<br>
 	</div>
 	
+ 		<p><span style="color: blue;">${message}</span>  <p> 
 	<div class="index">
 	 <form name="loginForm" action="javascript:send();" method="post">
 		<input type="text" name="userId" required="required" maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="UserID">
@@ -78,6 +79,7 @@ function sendLogin() {
         Don't have account? <a href="<%=cp%>/member/member.do">Sign up</a>
     </div>
 </div>
+
 
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>

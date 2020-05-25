@@ -57,14 +57,20 @@ function sendLogin() {
 	</div>
 	
 	<div class="index">
-	 <form name="pwdForm" action="javascript:send();" method="post">
-		<input type="text" name="userId" required="required" maxlength="10" pattern="[a-zA-Z0-9]+"  value="${sessionScope.member.userId}" readonly="readonly">
-		<span data-placeholder="UserID"></span>	
-         <input type="password" name="userPwd" required="required"  maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="Password">
-         <span data-placeholder="Password"></span>
-      <button type="button" onclick="sendLogin();">확인</button>
-      <input type="hidden" name="mode" value="${mode}">
-      </form>
+		<form name="pwdForm" action="javascript:send();" method="post">	 
+			<input type="text" name="userId" required="required" maxlength="10" pattern="[a-zA-Z0-9]+"  value="${sessionScope.member.userId}" readonly="readonly">
+			<span data-placeholder="UserID"></span>	
+			<input type="password" name="userPwd" required="required"  maxlength="10" pattern="[a-zA-Z0-9]+" placeholder="Password">
+			<span data-placeholder="Password"></span>
+			<input type="hidden" name="mode" value="${mode}">
+			<button type="button" onclick="sendLogin();">확인</button>
+		</form>
+		
+		<table style="font-size:15px; width:420px; margin-top:-210px; margin-left:50px; border-collapse: collapse;">
+			<tr align="left" height="30" >
+				<td><span style="color: blue;">${message}</span></td>
+			</tr>
+		</table>
     </div> 
 </div>
 

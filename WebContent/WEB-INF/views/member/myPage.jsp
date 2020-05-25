@@ -16,24 +16,9 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/signup.css" type="text/css">
 
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-$(function() {  //엔터치면 다음으로 넘어가게함.
-	$("input").not($(":button")).not($(":reset")).keypress(function(evt) { //input에서 keypress가 발생했으면(버튼과 리셋은 빼고) 
-		if(evt.keyCode==13){
-			var fields=$(this).parents("form,body").find("button,input,select,textarea"); //form또는 body 안에 모든 button,input,select,textarea 찾아라
-			var index=fields.index(this);
-			
-			if(index>-1 && (index+1)<fields.length){
-				fields.eq(index+1).focus();
-			}
-			return false; //엔터 이벤트 취소
-		}
-	});
-	
-});
-</script>
 
-<script type="text/javascript"> /* 자바스크립트는  웹브라우저에 의해 실행되어지는거,전세계적으로 많이 씀*/
+
+<script type="text/javascript"> 
 
 function memberOk() {
 	var f = document.memberForm;
@@ -73,46 +58,49 @@ function memberOk() {
 	  <form name="memberForm" action="javascript:send();" method="post" enctype="multipart/form-data">
 
 <!-- 파일처리하려함. 아직 못함. -->
-	  	<input type="file" name="upload" accept="image/*" class="btn" size="53" style="height: 25px;">
-			<c:if test="${not empty dto.saveFilename}">
-				${dto.originalFilename}
+<%-- 	  	<input type="file" name="upload" accept="image/*" class="btn" size="53" style="height: 25px;">
+			<c:if test="${not empty dto.imageFilename}">
+				${dto.imageFilename}
 				| <a href="javascript:deleteFile('${dto.num}')">삭제</a>
-			</c:if>
+			</c:if> --%>
 
-
-		 <input type="text" name="userId" value="${dto.userId}" class="imo" readonly="readonly"> 
-
-         <input type="text" name="userName" value="${dto.userName}" readonly="readonly">
-          
-		 <span data-placeholder="tel"></span>
-			<p style="float: left; margin-top: 12px;">&nbsp;-&nbsp;</p>
-	     <input type="text" name="tel2" value="${dto.tel2}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 142px;" readonly="readonly" >
-			<p style="float: left; margin-top: 12px;">&nbsp;-&nbsp;</p>
-	     <input type="text" name="tel3" value="${dto.tel3}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 143px;" readonly="readonly" >
-
-         <input class="email" type="text" name="email1" value="${dto.email1}" required="required" size="13" style="float:left; width: 140px;" readonly="readonly" >
-         	<p style="float: left; margin-top: 12px;">@</p>
-         <input class="email" type="text" name="email2" value="${dto.email2}" readonly="readonly" style="float:left; width: 150px;">
-	     <span data-placeholder="Email"></span>	
-
-
-	     <input type="text" name="userBirth" value="${dto.userBirth}" readonly="readonly" >
-
-		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();"style="margin-left: 10px;">정보수정</button>
-		<button class="indexBtn" type="reset">회원탈퇴</button>
-	 	
-	 		
-	 	<%-- 	
-	 		<c:if test="${mode=='update'}">
-				<input type="hidden" name="num" value="${dto.num}">
-				<input type="hidden" name="fileSize" value="${dto.filesize}">
-				<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
-				<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
-			</c:if> 
-
-			<input type="hidden" name="rows" value="${rows}">
-		 --%>
-	
+		<img src="${dto.originalFilename}" />
+		
+		 <p>
+		 	<font>&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+		 	<input type="text" name="userId" value="${dto.userId}" class="imo" readonly="readonly" style="width: 80%"/> 
+		</p>
+		<p>
+		 	<font>&nbsp;&nbsp;이&nbsp;름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+         	<input type="text" name="userName" value="${dto.userName}" readonly="readonly" style="width: 80%"/>
+        </p>	
+		<p>
+		 	<font>전화번호&nbsp;&nbsp;</font>
+	     	<input type="text" name="tel" value="${dto.tel1} - ${dto.tel2} - ${dto.tel3}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" readonly="readonly" style="width: 80%"/>
+		    
+		    <input type="hidden" name="tel1" value="${dto.tel1}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 120px;" readonly="readonly" >
+		    <input type="hidden" name="tel2" value="${dto.tel2}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 120px;" readonly="readonly" >
+		    <input type="hidden" name="tel3" value="${dto.tel3}" required="required" maxlength="11" pattern="[0-9]+" placeholder="tel" style="float:left; width: 120px;" readonly="readonly" >
+		</p>
+		<p>
+		 	<font>&nbsp;&nbsp;e-mail&nbsp;&nbsp;&nbsp;</font>
+         	<input class="email" type="text" name="email1" value="${dto.email1} @ ${dto.email2}" required="required" size="13" readonly="readonly" style="width: 80%"/>
+         
+         	<input class="email" type="hidden" name="email1" value="${dto.email1}" readonly="readonly" style="float:left; width: 150px;">
+         	<input class="email" type="hidden" name="email2" value="${dto.email2}" readonly="readonly" style="float:left; width: 150px;">
+        </p> 	
+ 		<p>
+		 	<font>생년월일&nbsp;&nbsp;</font>	
+			<input type="text" name="userBirth" value="${dto.userBirth}" readonly="readonly" style="width: 80%"/>
+		</p>
+		
+		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();" style="margin-left: 100px;">정보수정</button>
+		<c:if test="${sessionScope.member.userId=='admin'}">
+		<a href="<%=cp%>/member/list.do"><button class="indexBtn" type="button" name="sendButton">회원리스트</button></a>
+	 	</c:if>
+		<c:if test="${sessionScope.member.userId!='admin'}">
+		<a href="<%=cp%>/member/delete.do"><button class="indexBtn" type="button" name="sendButton" onclick="memberOk();">회원탈퇴</button></a>
+	 	</c:if>
      </form>
    </div>   
 </div>

@@ -79,20 +79,18 @@ $(function(){
 		        
 		        <ul  class="nav2">
 		            <li>
-		            <c:if test="${empty sessionScope.member}">
-		            	<a href="<%=cp%>/member/login.do" style="font-size: 12px;">login</a>
-		            	&nbsp;
-			       		<a href="<%=cp%>/member/member.do" style="font-size: 12px;">sign up</a>
-			       	</c:if>	
-			       	<c:if test="${not empty sessionScope.member}">
-			       	 <span style="color:blue;">${sessionScope.member.userName}</span>님
-			       	 	&nbsp;
-			       		<a href="<%=cp%>/member/logout.do" style="font-size: 12px;">Logout</a>
-		            	&nbsp;
-			       	<a href="<%=cp%>/member/pwd.do?mode=update" style="font-size: 12px;">Mypage</a>
-			       	<!--  <a href="<%=cp%>/member/mypage.do?id=${sessionScope.member.userId}" style="font-size: 12px;">Mypage</a>-->
-			       		
-			      </c:if>
+			            <c:if test="${empty sessionScope.member}">
+			            	<a href="<%=cp%>/member/login.do" style="font-size: 12px;">login</a>
+			            	&nbsp;
+				       		<a href="<%=cp%>/member/member.do" style="font-size: 12px;">sign up</a>
+				       	</c:if>	
+				       	<c:if test="${not empty sessionScope.member}">
+				       		<span style="color:blue;">${sessionScope.member.userName}</span>님
+				       	 	&nbsp;
+				       		<a href="<%=cp%>/member/logout.do" style="font-size: 12px;">Logout</a>
+			            	&nbsp;	            
+				       		<a href="<%=cp%>/member/pwd.do?mode=update" style="font-size: 12px;">${sessionScope.member.userId=="admin"?"관리자Page":"MyPage"}</a>
+				     	</c:if>
 			       	</li>	
 		        </ul>   
     		</div>	   

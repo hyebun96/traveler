@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.util.DBConn;
 
@@ -17,7 +19,7 @@ public class MemberDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append("SELECT imageFilename,userId,userPwd,userName,userTel,userEmail");
+			sb.append("SELECT userId,userPwd,userName,userTel,userEmail,imageFilename");
 			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
 			sb.append(" FROM member");
 			sb.append(" WHERE userId=?");
@@ -27,13 +29,13 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				dto = new MemberDTO();
-				dto.setImageFilename(rs.getString("imageFilename"));
 				dto.setUserId(rs.getString("userId"));
 				dto.setUserPwd(rs.getString("userPwd"));
 				dto.setUserName(rs.getString("userName"));
 				dto.setUserTel(rs.getString("userTel"));
 				dto.setUserEmail(rs.getString("userEmail"));
 				dto.setUserBirth(rs.getString("userBirth"));
+				dto.setImageFilename(rs.getString("imageFilename"));
 
 				if (dto.getUserTel() != null) {
 					String[] ss = dto.getUserTel().split("-");
@@ -71,15 +73,13 @@ public class MemberDAO {
 		}
 		return dto;
 	}
-
+//회원가입
 	public void insertMember(MemberDTO dto) throws Exception {
 		PreparedStatement pstmt = null;
 		String sql;
-
 		try {
 			sql = "INSERT INTO member(userId,userPwd,userName,userTel,userEmail,userBirth,imageFilename) VALUES(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setString(1, dto.getUserId());
 			pstmt.setString(2, dto.getUserPwd());
 			pstmt.setString(3, dto.getUserName());
@@ -101,7 +101,8 @@ public class MemberDAO {
 			}
 		}
 	}
-
+	
+//회원수정	
 	public void updateMember(MemberDTO dto) throws Exception {
 		PreparedStatement pstmt = null;
 		String sql;
@@ -132,7 +133,7 @@ public class MemberDAO {
 			}
 		}
 	}
-
+//회원탈퇴
 	public void deleteMember(String userId) throws Exception {
 		PreparedStatement pstmt = null;
 		String sql;
@@ -155,4 +156,211 @@ public class MemberDAO {
 			}
 		}
 	}
+
+  // 데이터 개수
+	public int dataCount() {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql;
+		
+		try {
+			sql = "SELECT NVL(COUNT(*), 0) FROM member";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+  // 글 리스트(목록)
+	public List<MemberDTO> listBoard(int start, int end) {
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		MemberDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			sb.append("SELECT userId,userPwd,userName,userTel,userEmail");
+			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
+			sb.append(" FROM member");
+			
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				dto = new MemberDTO();
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserPwd(rs.getString("userPwd"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserBirth(rs.getString("userBirth"));
+				
+
+				if (dto.getUserTel() != null) {
+					String[] ss = dto.getUserTel().split("-");
+					if (ss.length == 3) {
+						dto.setTel1(ss[0]);
+						dto.setTel2(ss[1]);
+						dto.setTel3(ss[2]);
+					}
+				}
+				dto.setUserEmail(rs.getString("userEmail"));
+				if (dto.getUserEmail() != null) {
+					String[] ss = dto.getUserEmail().split("@");
+					if (ss.length == 2) {
+						dto.setEmail1(ss[0]);
+						dto.setEmail2(ss[1]);
+					}
+				}
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		return list;
+	}
+	
+  // 검색 모드에서 전체의 개수 구하기
+    public int dataCount(String condition, String keyword) {
+        int result=0;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        String sql;
+
+        try {
+        	 if(condition.equalsIgnoreCase("name")) {
+        		sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(name, ? ) = 1 ";
+        	} else {
+        		sql="SELECT NVL(COUNT(*), 0) FROM member WHERE INSTR(" + condition + ", ? ) >= 1 ";
+        	}
+        	
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, keyword);
+
+            rs=pstmt.executeQuery();
+
+            if(rs.next())
+                result=rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try	{
+					rs.close();
+				}catch (Exception e2){
+				}
+			}
+			if(pstmt!=null) {
+				try	{
+					pstmt.close();
+				}catch (Exception e2){
+				}
+			}
+		}
+
+        return result;
+    }
+
+  // 검색에서 리스트(목록)
+    public List<MemberDTO> listBoard(int start, int end, String condition, String keyword) {
+        List<MemberDTO> list=new ArrayList<MemberDTO>();
+
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        StringBuilder sb = new StringBuilder();
+
+        try {
+			//sb.append("SELECT * FROM (");
+        	sb.append("SELECT userId,userPwd,userName,userTel,userEmail");
+			sb.append(" ,TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth");
+			sb.append(" FROM member");
+		
+			if(condition.equalsIgnoreCase("userId")) {  
+				sb.append("       WHERE userId = ?");
+				sb.append(" ORDER BY userId DESC  ");
+				sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
+
+			} else if(condition.equalsIgnoreCase("userName")){
+				sb.append("       WHERE userName = ?");
+				sb.append(" 		ORDER BY userName DESC  ");
+				sb.append(" 		OFFSET ? ROWS FETCH FIRST ? ROWS ONLY");
+			}
+			
+			
+			pstmt=conn.prepareStatement(sb.toString());
+            
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, start);
+            
+            rs=pstmt.executeQuery();
+            
+            while(rs.next()) {
+            	MemberDTO dto=new MemberDTO();
+            	dto = new MemberDTO();
+				dto.setUserId(rs.getString("userId"));
+				dto.setUserPwd(rs.getString("userPwd"));
+				dto.setUserName(rs.getString("userName"));
+				dto.setUserTel(rs.getString("userTel"));
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserBirth(rs.getString("userBirth"));
+            
+                list.add(dto);
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try	{
+					rs.close();
+				}catch (Exception e2){
+				}
+			}
+			if(pstmt!=null) {
+				try	{
+					pstmt.close();
+				}catch (Exception e2){
+				}
+			}
+		}
+        return list;
+    }
 }

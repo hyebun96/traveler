@@ -11,6 +11,12 @@ public class MemberDTO {
 	private String saveFilename;
 	private String originalFilename;
 	private long filesize;	
+	private String content;
+	private int viewCount;
+	private String created;
+	private int listNum;
+	private String title;
+
 	
 	public String getUserId() {
 		return userId;
@@ -101,6 +107,36 @@ public class MemberDTO {
 	}
 	public void setFilesize(long filesize) {
 		this.filesize = filesize;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public int getViewCount() {
+		return viewCount;
+	}
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
+	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 

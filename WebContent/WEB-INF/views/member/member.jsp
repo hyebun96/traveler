@@ -202,6 +202,7 @@ function isValidDateFormat(data) {
 
 </script>
 </head>
+
 <body>
 
 <div class="header">
@@ -275,20 +276,15 @@ function isValidDateFormat(data) {
 
 		<button class="indexBtn" type="button" name="sendButton" onclick="memberOk();"style="margin-left: 10px;">${mode=="created"?"sign up":"수정완료"}</button>
 		<button class="indexBtn" type="reset">다시입력</button>
-		<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/';">${mode=="created"?"가입취소":"수정취소"}</button>
-	 	
+		<c:if test="${mode=='created'}">
+			<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/';">가입취소</button>
+	 	</c:if>
+		<c:if test="${mode!='created'}">
+			<button class="indexBtn" type="button" onclick="javascript:location.href='<%=cp%>/member/myPage.do/';">수정취소</button>
+	 	</c:if>
 	 		
-	 	<%-- 	
-	 		<c:if test="${mode=='update'}">
-				<input type="hidden" name="num" value="${dto.num}">
-				<input type="hidden" name="fileSize" value="${dto.filesize}">
-				<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
-				<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
-			</c:if> 
+	 
 
-			<input type="hidden" name="rows" value="${rows}">
-		 --%>
-	
      </form>
    </div>   
 </div>
