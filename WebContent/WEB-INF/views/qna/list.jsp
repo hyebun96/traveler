@@ -14,14 +14,16 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/qna.css" type="text/css">
-<link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
 
-<script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
 <script type="text/javascript">
 	function searchList() {
 		var f=document.searchForm;
 		f.submit();
+	}
+	
+	function memberOnly(){
+		alert("게시물 접근 권한이 없습니다.")
+		return;
 	}
 </script>
 
@@ -55,13 +57,29 @@
 			<td>작성일</td>
 			<td>조회수</td>		
 		</tr>
+	<c:set var="qnaId" value=""/>
 	<c:forEach var="dto" items="${list}">
 		<tr>
 			<td>${dto.depth==0 ? "질문":"답변"}</td>
 			<td>${dto.listNum}</td>
 			<td class="qna-title">
-				<c:if test="${dto.depth!=0}">└&nbsp;</c:if>
-				<a href="${viewUrl}&qnaNum=${dto.qnaNum}">${dto.subject}</a></td>
+				<c:choose>
+					<c:when test="${dto.depth==0}">
+						<c:set var="qnaId" value="${dto.userId}"/>
+						<c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
+							<a href="${viewUrl}&qnaNum=${dto.qnaNum}">${dto.subject}</a>
+						</c:if>
+						<c:if test="${sessionScope.member.userId!=dto.userId && sessionScope.member.userId!='admin'}"><a onclick="memberOnly();">${dto.subject}</a></c:if>
+					</c:when>
+					<c:otherwise>
+						&nbsp;└&nbsp;re:
+						<c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==qnaId}">
+							<a href="${viewUrl}&qnaNum=${dto.qnaNum}">${dto.subject}</a>
+						</c:if>
+						<c:if test="${sessionScope.member.userId!=qnaId && sessionScope.member.userId!='admin'}"><a onclick="memberOnly();">${dto.subject}</a></c:if>
+					</c:otherwise>
+				</c:choose>
+			</td>
 			<td>${dto.userName}</td>
 			<td>${dto.qnaDate}</td>
 			<td>${dto.hitCount}</td>
@@ -89,8 +107,7 @@
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
+
 
 
 </body>
