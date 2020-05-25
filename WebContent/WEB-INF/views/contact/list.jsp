@@ -78,7 +78,7 @@ function searchList2(ctSort) {
 				<td>작성일</td>
 			</tr>
 		<c:forEach var="dto" items="${list}">
-			<tr style="background-color:${dto.fin==1 ? 'red':''}">
+			<tr style="background-color:${dto.fin==1 ? '#85C1E9 ':''}">
 				<td>${dto.ctSort=='sugg' ? '제안':(dto.ctSort=='edit' ? '정보수정요청': (dto.ctSort=='ad'?'광고문의' : '기타'))}</td>
 				<td>${dto.ctNum }</td>
 				<td  class="board-title"><a href="${viewUrl}&ctNum=${dto.ctNum}">${dto.ctSubject}</a></td>
