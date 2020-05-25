@@ -65,7 +65,7 @@ function updatePhoto(photoNum) {
 			
 			<tr height="40" style="border-bottom: 1px solid #4CAF50;">
 			    <td width="50%" align="left" style="padding-left: 5px; font-size: 16px;">
-			       Name : ${dto.userName}
+			      PhotoNum : ${dto.photoNum}
 			    </td>
 			    
 			</tr>
