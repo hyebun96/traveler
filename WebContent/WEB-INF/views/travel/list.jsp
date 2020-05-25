@@ -30,9 +30,9 @@
 			<p><button type="button" id="cr" onclick="javascript:location.href='<%=cp%>/travel/created.do'">글등록</button></p>
 		</c:if>
 		<div class="weather">
-			<img alt="" src="<%=cp %>/resource/img/cloudy.png">
-			<p style="margin-top: 20px; display: block;">seoul weather(℃)</p>		
-			<p style="font-size: 12px; padding-top: 10px;">${date}</p>	<%--April 21, 2020 --%>
+		<img alt="" src="<%=cp %>/resource/img/${vo.weather}">
+			<p style="margin-top: 20px; display: block;">${type} weather<span style="font-size: 20px;">( ${vo.tem} )</span></p>		
+			<p style="font-size: 15px; padding-top: 10px; float: right;">${date}&nbsp;&nbsp;&nbsp;</p>	<%--April 21, 2020 --%>
 		</div>
 	
 		<c:forEach var= "dto" items="${list}">
@@ -44,13 +44,14 @@
 				</div>
 				<div class="content-box2">
 					<img alt="" src="<%=cp %>/resource/img/user.png">
-					<span>${dto.userName}</span><br>		
-					<span>${dto.place} | ${dto.created}</span>														
+					<span>${dto.place} | ${dto.created}</span><br>															
+					<span>${dto.userName}</span>	
 					<div class="content">${dto.information}</div>
 				</div>
 				<div id="up">
+						<input type="hidden" name="type" value="${type}">
 						<c:if test="${sessionScope.member.userId == 'admin'}" >
-							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/delete.do?num=${dto.num}'">글삭제</button>
+							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/delete.do?num=${dto.num}&type=${type}'">글삭제</button>
 							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/update.do?num=${dto.num}'">글수정</button>
 						</c:if>
 					</div>
@@ -58,7 +59,7 @@
 				<div class="like-box">
 					<hr style="clear: both;">
 					<span>${dto.likeNum} Like&nbsp;&nbsp;&nbsp;Only read</span><span
-						style="float: right;"><a href="javascript:location.href='<%=cp%>/travel/like.do?num=${dto.num}'">♥</a></span>
+						style="float: right;"><a href="javascript:location.href='<%=cp%>/travel/like.do?num=${dto.num}&type=${type}'">♥</a></span>
 				</div>
 			</div>
 			<br>

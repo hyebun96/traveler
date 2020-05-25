@@ -39,7 +39,7 @@ public class TravelServlet extends MyUploadServlet {
 		String root = session.getServletContext().getRealPath("/");
 		pathname = root + "uploads" + File.separator + "travel";
 
-		if (uri.indexOf("seoul.do") != -1) {
+		if (uri.indexOf("list.do") != -1) {
 			list(req, resp);
 		} else if (uri.indexOf("created.do") != -1) {
 			createdForm(req, resp);
@@ -63,6 +63,9 @@ public class TravelServlet extends MyUploadServlet {
 		TravelDAO dao = new TravelDAO();
 		String cp = req.getContextPath();
 
+		String type = req.getParameter("type");
+		
+		
 		// 검색
 		String condition = req.getParameter("condition");
 		String keyword = req.getParameter("keyword");
@@ -80,6 +83,9 @@ public class TravelServlet extends MyUploadServlet {
 		Date nowTime = new Date();
 		SimpleDateFormat day = new SimpleDateFormat("MM dd, yyyy");
 		String date = day.format(nowTime);
+		
+		SimpleDateFormat day2 = new SimpleDateFormat("yyyy/MM/dd");
+		String date2 = day2.format(nowTime);
 
 		int dataCount;
 		List<TravelDTO> list = null;
@@ -92,7 +98,7 @@ public class TravelServlet extends MyUploadServlet {
 		if (keyword.length() != 0)
 			list = dao.listTravel(condition, keyword);
 		else
-			list = dao.listTravel();
+			list = dao.listTravel(type);
 
 		String query = "";
 		String listUrl = "";
@@ -100,22 +106,25 @@ public class TravelServlet extends MyUploadServlet {
 
 		listUrl = cp + "/travel/list.do";
 		articleUrl = cp + "/travel/article.do";
-
 		if (keyword.length() != 0) {
 			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
 
 			listUrl += "?" + query;
 			articleUrl += "?" + query;
 		}
+		
+		WeatherDTO vo = dao.listWeather(date2,type);
 
 		// 포워딩 jsp에 넘길 데이터
 		req.setAttribute("list", list);
+		req.setAttribute("vo", vo);
 		req.setAttribute("articleUrl", articleUrl);
 		req.setAttribute("listUrl", listUrl);
 		req.setAttribute("dataCount", dataCount);
 		req.setAttribute("condition", condition);
 		req.setAttribute("keyword", keyword);
 		req.setAttribute("date", date);
+		req.setAttribute("type", type);
 
 		// JSP로 포워딩
 		forward(req, resp, "/WEB-INF/views/travel/list.jsp");
@@ -127,7 +136,7 @@ public class TravelServlet extends MyUploadServlet {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		if (!info.getUserId().equals("admin")) {
-			resp.sendRedirect(req.getContextPath() + "/travel/seoul.do");
+			resp.sendRedirect(req.getContextPath() + "/travel/list.do");
 			return;
 		}
 
@@ -149,7 +158,7 @@ public class TravelServlet extends MyUploadServlet {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		if (!info.getUserId().equals("admin")) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do");
 			return;
 		}
 
@@ -160,6 +169,9 @@ public class TravelServlet extends MyUploadServlet {
 
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
+		dto.setType(req.getParameter("type"));
+		
+		String type = dto.getType();
 
 		dao.insertTravel(dto);
 
@@ -179,7 +191,7 @@ public class TravelServlet extends MyUploadServlet {
 
 		}
 
-		resp.sendRedirect(cp + "/travel/seoul.do");
+		resp.sendRedirect(cp + "/travel/list.do?type="+type);
 	}
 
 	protected void updateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -195,12 +207,12 @@ public class TravelServlet extends MyUploadServlet {
 		TravelDTO dto = dao.readTravel(num);
 
 		if (dto == null) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do");
 			return;
 		}
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do");
 			return;
 		}
 
@@ -220,14 +232,17 @@ public class TravelServlet extends MyUploadServlet {
 		int num = Integer.parseInt(req.getParameter("num"));
 
 		if (req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do");
 		}
 
 		dto.setNum(num);
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
 		dto.setUserName(req.getParameter("name"));
+		dto.setType(req.getParameter("type"));
 
+		String type = dto.getType();
+		
 		if (req.getParts() != null) {
 
 			List<Part> list = new ArrayList<Part>();
@@ -248,7 +263,7 @@ public class TravelServlet extends MyUploadServlet {
 
 		dao.updateTravel(dto);
 
-		resp.sendRedirect(cp + "/travel/seoul.do");
+		resp.sendRedirect(cp + "/travel/list.do?type="+type);
 
 	}
 
@@ -260,28 +275,32 @@ public class TravelServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 
 		int num = Integer.parseInt(req.getParameter("num"));
-
+		
+		String type = req.getParameter("type");
+		
 		TravelDTO dto = dao.readTravel(num);
+		
 
 		if (dto == null) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp + "/travel/seoul.do?");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
 		if (dto.getImageFilename() != null ) {
 			for(int i=0; i<dto.getImageFilename().length; i++) {
 				FileManager.doFiledelete(pathname, dto.getImageFilename()[i]);
+				dao.deleteImage(dto.getImageFilename()[i]);
 			}
 		}
 
 		dao.deleteTravel(num);
 
-		resp.sendRedirect(cp + "/travel/seoul.do");
+		resp.sendRedirect(cp + "/travel/list.do?type="+type);
 
 	}
 
@@ -294,17 +313,18 @@ public class TravelServlet extends MyUploadServlet {
 
 		int num = Integer.parseInt(req.getParameter("num"));
 		String filename = req.getParameter("filename");
+		String type = req.getParameter("type");
 
 		TravelDTO dto = dao.readTravel(num);
 
 		if (dto == null) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp + "/travel/seoul.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
@@ -325,10 +345,11 @@ public class TravelServlet extends MyUploadServlet {
 		TravelDAO dao = new TravelDAO();
 
 		int num = Integer.parseInt(req.getParameter("num"));
-
+		String type = req.getParameter("type");
+		
 		dao.likeInsert(num);
 
-		resp.sendRedirect(cp + "/travel/seoul.do");
+		resp.sendRedirect(cp + "/travel/list.do?type="+type);
 	}
 
 }

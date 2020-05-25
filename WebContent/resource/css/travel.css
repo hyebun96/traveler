@@ -125,6 +125,8 @@
 	margin: 5px;
 }
 
-
+.main #cr button:hover, button:active{
+	background: green;	
+}
 
 

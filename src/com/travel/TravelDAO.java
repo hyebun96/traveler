@@ -89,7 +89,7 @@ public class TravelDAO {
 		return result;
 	}
 
-	public List<TravelDTO> listTravel() {
+	public List<TravelDTO> listTravel(String type) {
 		List<TravelDTO> list = new ArrayList<TravelDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -103,10 +103,12 @@ public class TravelDAO {
 			sb.append("  	SELECT travelNum, LISTAGG(SAVEFILENAME,',') WITHIN GROUP (order by SAVEFILENAME) saveFilename ");
 			sb.append(" 	FROM TRAVELFILE f  ");
 			sb.append("     GROUP BY travelNum");
-			sb.append("   ) img ON t.travelNum = img.travelNum");
+			sb.append("   	) img ON t.travelNum = img.travelNum");
+			sb.append("	 WHERE type=? ");
 			
 			
 			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, type);
 			
 			rs = pstmt.executeQuery();
 			
@@ -220,13 +222,14 @@ public class TravelDAO {
 		
 		try {
 			sb.append("INSERT INTO travel ");
-			sb.append(" (travelNum, place, information, userid) ");
-			sb.append(" VALUES(travel_seq.NEXTVAL,?,?,?) ");
+			sb.append(" (travelNum, place, information, userid, type) ");
+			sb.append(" VALUES(travel_seq.NEXTVAL,?,?,?,?) ");
 			
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setString(1, dto.getPlace());
 			pstmt.setString(2, dto.getInformation());
 			pstmt.setString(3, dto.getUserId());
+			pstmt.setString(4, dto.getType());
 			
 			pstmt.executeUpdate();
 			
@@ -246,7 +249,7 @@ public class TravelDAO {
 		StringBuilder sb = new StringBuilder();
 		
 		try {
-			sb.append("SELECT t.travelNum, place, information, t.userid, userName , saveFilename  ");
+			sb.append("SELECT t.travelNum, place, information, t.userid, userName , saveFilename, type ");
 			sb.append(" FROM travel t JOIN member m ON t.userid = m.userid ");
 			sb.append(" LEFT OUTER JOIN ( ");
 			sb.append("    SELECT travelNum, LISTAGG(SAVEFILENAME,',') WITHIN GROUP (order by SAVEFILENAME) saveFilename");
@@ -273,6 +276,7 @@ public class TravelDAO {
 				if(rs.getString("saveFilename")!=null) {
 					dto.setImageFilename(rs.getString("saveFilename").split(","));
 				}
+				dto.setType(rs.getString("type"));
 			}
 
 		} catch (Exception e) {
@@ -394,16 +398,19 @@ public class TravelDAO {
 				
 				result = pstmt.executeUpdate();
 				
-			}else {
+			}
+			
+			else if(dto!=null){
 				
 				sql = "INSERT INTO travelFile(fNum,travelNum,saveFilename) VALUES(tFile_SEQ.NEXTVAL, ?, ?)";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, dto.getNum());
 				pstmt.setString(2, s);
+
+				result = pstmt.executeUpdate();
 			}
 			
-			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -444,4 +451,37 @@ public class TravelDAO {
 		}
 		return result;
 	}	
+	
+	public WeatherDTO listWeather(String cal, String area) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		WeatherDTO dto = new WeatherDTO();
+		
+		try {
+			
+			sql="SELECT wnum, tem, weather FROM weather WHERE cal=? AND area=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cal);
+			pstmt.setString(2, area);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+			
+			dto.setwNum(rs.getInt("wnum"));
+			dto.setTem(rs.getString("tem"));
+			dto.setWeather(rs.getString("weather"));
+					
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		return dto;
+	}
 }

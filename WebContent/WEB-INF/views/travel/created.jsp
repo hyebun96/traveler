@@ -75,19 +75,32 @@ button{
 				<div class="content-box2">
 					<img alt="" src="<%=cp %>/resource/img/user.png">
 					<span style="padding: 5px;">&nbsp;작성자 ${dto.userId}(${dto.userName})</span><br><br>				
+					<span>지&nbsp;&nbsp;&nbsp;역</span>
+						<select name="type">
+                           <option value="" value="${dto.type}">::지역선택::</option>
+                           <option value="seoul" ${dto.type == "seoul" ? "selected='selected'" : ""}>seoul</option>
+                           <option value="gangwon" ${dto.type == "gangwon" ? "selected='selected'" : ""}>gangwon</option>
+                           <option value="chungcheon" ${dto.type == "chungcheon" ? "selected='selected'" : ""}>chungcheon</option>
+                           <option value="jeonla" ${dto.type == "jeonla" ? "selected='selected'" : ""}>jeonla</option>
+                           <option value="gyeongsang" ${dto.type == "gyeongsang" ? "selected='selected'" : ""}>gyeongsang</option>
+                           <option value="jeju" ${dto.type == "jeju" ? "selected='selected'" : ""}>jeju</option>
+                        </select>
 					<span>장&nbsp;&nbsp;&nbsp;소 <input type="text" name="place" value="${dto.place}"></span>														
 					<br><div class="content">정보 <br>
 						<textarea name="information" style="width: 95%; height: 100px;">${dto.information}</textarea>
 					</div>
-					<input multiple="multiple" type="file" name="upload" style="margin-left: 70px;">
-					<c:forEach var="filename" items="${dto.imageFilename}">${filename}
-					            <input type="hidden" value="${filename}"> 
-					             | <a href="javascript:deleteFile('${filename}','${dto.num}');">삭제</a>
+					<input multiple="multiple" type="file" name="upload" style="margin-left: 70px;"><br><br>
+					<c:forEach var="filename" items="${dto.imageFilename}">
+					 		<span style="margin-left: 50px">&nbsp;&nbsp;</span>
+					 		${filename}
+					         <input type="hidden" value="${filename}"> 
+					             | <a href="javascript:deleteFile('${filename}','${dto.num}');">삭제</a><br>
 					</c:forEach>   
 				</div>
 				<br>
 				<hr>
 				<div class="button-box">
+					<input type="hidden" name="type" value="${type}">
 					<input type="hidden" name="imageFilename" value="${dto.imageFilename}"> 
 					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/travel/seoul.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 					<button type="reset" class="btn">다시입력</button>
