@@ -14,7 +14,21 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/main.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/css/board.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
+<style type="text/css">
+.txt_line {
+      width:50px;
+      padding:0 5px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  }
+
+
+
+</style>
+
 
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.min.js"></script>
@@ -48,9 +62,27 @@
 	<p>지금 바로 떠나는 국내여행</p>	
 	<br>
 	<div class="main-box1">
-		<a href="notice.html">
-		공지사항
-		</a>
+		<table style="height: 100%; table-layout: fixed;" class="board-table">
+			<tr style="border-bottom: 2px solid black;" >
+				<td>글번호</td>
+				<td style="width: 40%">제목</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>조회수</td>
+			</tr>
+		<c:forEach var="dto" items="${list }" begin="0" end="4">
+			<tr>
+			<td><span style="display: inline-block;padding:1px 3px; background: #ED4C00;color: #FFFFFF; ">중요!</span></td>
+			<td style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"><a href="${articleUrl }?num=${dto.num}&page=1">${dto.title }</a></td>
+			<td>${dto.name }</td>
+			<td>${dto.created }</td>
+			<td>${dto.viewCount }</td>
+			</tr>
+		</c:forEach>
+		</table>
+		
+		
+		
 	</div>
 	<div class="main-box2" >
 		<a href="galleryphoto.html">
