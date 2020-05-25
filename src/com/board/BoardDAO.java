@@ -180,7 +180,7 @@ public class BoardDAO {
 			try {
 				sb.append("SELECT boardNum, title,name, TO_CHAR(created,'YYYY-MM-DD') created, viewCount ");
 				sb.append("FROM board ");
-				if(condition.equals("write")) {
+				if(condition.equals("writer")) {
 					sb.append("WHERE INSTR(name, ? ) = 1");
 				}else if(condition.equals("contents")) {
 					sb.append("WHERE INSTR(content,?) >=1");

@@ -126,7 +126,7 @@ public class NoticeDAO {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			sb.append("SELECT NVL(COUNT(*),0) FROM board ");
+			sb.append("SELECT NVL(COUNT(*),0) FROM notice ");
 			if (condition.equals("writer")) {
 				sb.append("WHERE INSTR(name, ? ) = 1");
 			} else if (condition.equals("contents")) {

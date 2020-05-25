@@ -58,7 +58,6 @@
 	<select name="condition" style="height: 23px;">
 			<option value="title" ${condition=="title"?"selected='selected'":"" }>글제목</option>
 			<option value="contents" ${condition=="contents"?"selected='selected'":"" }>글내용</option>
-			<option value="writer" ${condition=="writer"?"selected='selected'":"" }>작성자</option>
 	</select>
 	<input type="text" name="keyword" style="vertical-align: bottom; height: 19px;">
 	<button style="vertical-align: bottom; height: 23px; width: 100px; background: #eee; border: 1px solid #777;" onclick="searchList()">검색</button>

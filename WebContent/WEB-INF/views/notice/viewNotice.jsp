@@ -115,7 +115,7 @@ function deleteBoard(num) {
 		</table>
 		
 		<div align="right">
-			<button type="button" onclick="javascript:location.href='<%=cp%>/notice/board.do?${query}';">목록으로</button>
+			<button type="button" onclick="javascript:location.href='<%=cp%>/notice/notice.do?${query}';">목록으로</button>
 							    
 			<button type="button" class="btn" onclick="updateBoard('${dto.num}');">수정</button>
 			
