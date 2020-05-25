@@ -295,7 +295,7 @@ public class PhotoServlet extends MyUploadServlet {
 		
 		PhotoDAO dao=new PhotoDAO();
 		
-		int num=Integer.parseInt(req.getParameter("num"));
+		int num=Integer.parseInt(req.getParameter("photoNum"));
 		String page=req.getParameter("page");
 		
 		PhotoDTO dto=dao.readPhoto(num);
