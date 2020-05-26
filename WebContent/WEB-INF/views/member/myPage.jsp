@@ -44,6 +44,9 @@ function memberOk(mode) {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
+<div class="navigation">
+	<div class="nav-bar">HOME > MyPage</div>
+</div>
 
 
 <div class="main">

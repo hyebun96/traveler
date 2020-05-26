@@ -57,7 +57,7 @@ public class LoginFilter implements Filter{
 				"/index.jsp", "/main.do",
 				"/board/board.do", "/member/login.do", "/member/login_ok.do", "/member/member.do", "/member/member_ok.do", 
 				"/notice/notice.do","/qna/list.do", "/contact/contact.do","/contact/contact_ok.do","/resource/**",
-				"/travel/list.do"
+				"/travel/list.do", "/uploads/travel/**"
 		};
 		
 		if(uri.length()<=1) {

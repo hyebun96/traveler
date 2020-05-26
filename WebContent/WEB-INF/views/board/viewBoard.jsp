@@ -70,7 +70,9 @@ function deleteBoard(num) {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
-
+<div class="navigation">
+	<div class="nav-bar">HOME > 자유게시판</div>
+</div>
 
 <div class="viewboard">
 

@@ -98,8 +98,5 @@ $(function(){
 	</div>
 	
 	
-    <div class="navigation">
-        <div class="nav-bar">HOME</div>
 
-    </div>
 

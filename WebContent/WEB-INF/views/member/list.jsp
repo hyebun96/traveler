@@ -32,6 +32,9 @@
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
+<div class="navigation">
+	<div class="nav-bar">HOME > 회원정보목록</div>
+</div>
 
 <div class="member">
 <h3>회원정보 리스트</h3>
