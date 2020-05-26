@@ -231,8 +231,8 @@ public class PhotoServlet extends MyUploadServlet {
 		PhotoDAO dao=new PhotoDAO();
 	
 		String page=req.getParameter("page");
-		int num=Integer.parseInt(req.getParameter("num"));
-		PhotoDTO dto=dao.readPhoto(num);
+		int photoNum=Integer.parseInt(req.getParameter("photoNum"));
+		PhotoDTO dto=dao.readPhoto(photoNum);
 		
 		if(dto==null) {
 			resp.sendRedirect(cp+"/photo/photoMain.do?page="+page);
@@ -266,7 +266,7 @@ public class PhotoServlet extends MyUploadServlet {
 		}
 		
 		String imageFilename=req.getParameter("imageFilename");
-		dto.setPhotoNum(Integer.parseInt(req.getParameter("photonum")));
+		dto.setPhotoNum(Integer.parseInt(req.getParameter("photoNum")));
 		dto.setSubject(req.getParameter("subject"));
 		dto.setContent(req.getParameter("content"));
 		

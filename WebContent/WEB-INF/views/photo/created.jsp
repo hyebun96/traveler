@@ -129,7 +129,7 @@
 			        <button type="reset" class="btn1">다시입력</button>
 			        <button type="button" class="btn1" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 			         <c:if test="${mode=='update'}">
-                             <input type="hidden" name="num" value="${dto.photoNum}">
+                             <input type="hidden" name="photoNum" value="${dto.photoNum}">
                              <input type="hidden" name="userId" value="${dto.userId}">
                              <input type="hidden" name="imageFilename" value="${dto.imageFilename}">
                              <input type="hidden" name="page" value="${page}">

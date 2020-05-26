@@ -126,7 +126,7 @@ public class PhotoDAO {
 		return list;
 	}
 	
-	public PhotoDTO readPhoto(int photonum) {
+	public PhotoDTO readPhoto(int photoNum) {
 		PhotoDTO dto=null;
 		
 		PreparedStatement pstmt=null;
@@ -139,7 +139,7 @@ public class PhotoDAO {
 			sb.append(" WHERE photoNum=?");
 			
 			pstmt=conn.prepareStatement(sb.toString());
-			pstmt.setInt(1, photonum);
+			pstmt.setInt(1, photoNum);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -377,7 +377,7 @@ public class PhotoDAO {
 		
 		try {
 			sb.append("UPDATE photo SET subject=?, content=?,  imageFilename=? ");
-			sb.append(" WHERE photonum=?");
+			sb.append(" WHERE photoNum=?");
 			pstmt=conn.prepareStatement(sb.toString());
 			
 			pstmt.setString(1, dto.getSubject());
@@ -401,7 +401,7 @@ public class PhotoDAO {
 		return result;
 	}
 	
-	public int deletePhoto(int photonum) {
+	public int deletePhoto(int photoNum) {
 		int result=0;
 		PreparedStatement pstmt=null;
 		String sql;
@@ -409,7 +409,7 @@ public class PhotoDAO {
 		try {
 			sql="DELETE FROM photo WHERE photonum=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, photonum);
+			pstmt.setInt(1, photoNum);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -88,6 +88,7 @@ function updatePhoto(photoNum) {
 			    <td width="300" align="left">
 			       <c:if test="${sessionScope.member.userId==dto.userId}">				    
 			          <button type="button" class="btn1" onclick="updatePhoto('${dto.photoNum}');">수정</button>
+			          <input type="hidden" name="photoNum" value="${dto.photoNum}">
 			       </c:if>
 			       <c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">				    
 			          <button type="button" class="btn1" onclick="deletePhoto('${dto.photoNum}');">삭제</button>
