@@ -62,6 +62,9 @@ function photoarticle(photoNum) {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
+<div class="navigation">
+	<div class="nav-bar">HOME > 갤러리</div>
+</div>
 <div class="photoselect" >
 	<div class="font"><font color="458B74" face="궁서체" size="16px"><i> Gallery </i></font></div>
 	<table class="photomainuser" style="text-align: center; width: 6%; height: 610px; float: left;">

@@ -74,6 +74,9 @@
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
+<div class="navigation">
+	<div class="nav-bar">HOME > 갤러리</div>
+</div>
 <div class="photocreated1">
     <div class="photocreated2" style="width: 700px; margin: 100px 10px 10px 600px;">
         	<font color="458B74" face="궁서체" size="16px" style="margin: 30px auto; text-align: center;"><i> Photo </i></font>
