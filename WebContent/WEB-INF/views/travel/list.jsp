@@ -40,10 +40,7 @@
 				<div class="content-box">
 				
 					<c:forEach var="s" items="${dto.imageFilename}">
-						
-						<%-- <img alt="" src="<%=cp%>/uploads/travel/${s}"> --%>
-						
-						<img alt="" src="/traveler/resource/travel/${s}">
+						 <img alt="" src="<%=cp%>/uploads/travel/${s}"> 
 					</c:forEach>
 				</div>
 				<div class="content-box2">
