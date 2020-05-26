@@ -56,7 +56,8 @@ public class LoginFilter implements Filter{
 		String [] uris = {
 				"/index.jsp", "/main.do",
 				"/board/board.do", "/member/login.do", "/member/login_ok.do", "/member/member.do", "/member/member_ok.do", 
-				"/notice/notice.do","/qna/list.do", "/contact/contact.do","/contact/contact_ok.do","/resource/**"
+				"/notice/notice.do","/qna/list.do", "/contact/contact.do","/contact/contact_ok.do","/resource/**",
+				"/travel/list.do"
 		};
 		
 		if(uri.length()<=1) {

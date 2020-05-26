@@ -127,7 +127,7 @@ public class TravelServlet extends MyUploadServlet {
 		req.setAttribute("type", type);
 
 		// JSP로 포워딩
-		forward(req, resp, "/WEB-INF/views/travel/list.jsp");
+		forward(req, resp, "/WEB-INF/views/travel/list.jsp?type="+type);
 
 	}
 
@@ -135,16 +135,20 @@ public class TravelServlet extends MyUploadServlet {
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
+		String type = req.getParameter("type");
+
 		if (!info.getUserId().equals("admin")) {
-			resp.sendRedirect(req.getContextPath() + "/travel/list.do");
+			resp.sendRedirect(req.getContextPath() + "/travel/list.do?type="+type);
 			return;
 		}
+		
 
 		TravelDTO dto = new TravelDTO();
 
 		dto.setUserId(info.getUserId());
 		dto.setUserName(info.getUserName());
 
+		req.setAttribute("type", type);
 		req.setAttribute("dto", dto);
 		req.setAttribute("mode", "created");
 		forward(req, resp, "/WEB-INF/views/travel/created.jsp");
@@ -156,9 +160,11 @@ public class TravelServlet extends MyUploadServlet {
 
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		
+		String type = req.getParameter("type");
+		
 		if (!info.getUserId().equals("admin")) {
-			resp.sendRedirect(cp + "/travel/list.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
@@ -170,8 +176,6 @@ public class TravelServlet extends MyUploadServlet {
 		dto.setPlace(req.getParameter("place"));
 		dto.setInformation(req.getParameter("information"));
 		dto.setType(req.getParameter("type"));
-		
-		String type = dto.getType();
 
 		dao.insertTravel(dto);
 
@@ -203,19 +207,21 @@ public class TravelServlet extends MyUploadServlet {
 		String cp = req.getContextPath();
 
 		int num = Integer.parseInt(req.getParameter("num"));
-
+		String type = req.getParameter("type");
+		
 		TravelDTO dto = dao.readTravel(num);
 
 		if (dto == null) {
-			resp.sendRedirect(cp + "/travel/list.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			resp.sendRedirect(cp + "/travel/list.do");
+			resp.sendRedirect(cp + "/travel/list.do?type="+type);
 			return;
 		}
 
+		req.setAttribute("type", type);
 		req.setAttribute("dto", dto);
 		req.setAttribute("mode", "update");
 

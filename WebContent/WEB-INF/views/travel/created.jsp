@@ -102,7 +102,7 @@ button{
 				<div class="button-box">
 					<input type="hidden" name="type" value="${type}">
 					<input type="hidden" name="imageFilename" value="${dto.imageFilename}"> 
-					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/travel/seoul.do';">${mode=='update'?'수정취소':'등록취소'}</button>
+					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/travel/list.do?type=${type}';">${mode=='update'?'수정취소':'등록취소'}</button>
 					<button type="reset" class="btn">다시입력</button>
 					<button type="button" class="btn" onclick="javascript:sendOk('${dto.num}');">${mode=='update'?'수정완료':'등록하기'}</button>
 				</div>

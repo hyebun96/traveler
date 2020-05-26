@@ -27,19 +27,23 @@
 	
 	<%--히든 메뉴 관리자 --%>
 		<c:if test="${sessionScope.member.userId == 'admin'}">
-			<p><button type="button" id="cr" onclick="javascript:location.href='<%=cp%>/travel/created.do'">글등록</button></p>
+			<p><button type="button" id="cr" onclick="javascript:location.href='<%=cp%>/travel/created.do?type=${type}'">글등록</button></p>
 		</c:if>
 		<div class="weather">
 		<img alt="" src="<%=cp %>/resource/img/${vo.weather}">
 			<p style="margin-top: 20px; display: block;">${type} weather<span style="font-size: 20px;">( ${vo.tem} )</span></p>		
 			<p style="font-size: 15px; padding-top: 10px; float: right;">${date}&nbsp;&nbsp;&nbsp;</p>	<%--April 21, 2020 --%>
 		</div>
-	
+
 		<c:forEach var= "dto" items="${list}">
 			<div class="box">
 				<div class="content-box">
+				
 					<c:forEach var="s" items="${dto.imageFilename}">
-						<img alt="" src="<%=cp%>/uploads/travel/${s}">
+						
+						<%-- <img alt="" src="<%=cp%>/uploads/travel/${s}"> --%>
+						
+						<img alt="" src="/traveler/resource/travel/${s}">
 					</c:forEach>
 				</div>
 				<div class="content-box2">
@@ -52,7 +56,7 @@
 						<input type="hidden" name="type" value="${type}">
 						<c:if test="${sessionScope.member.userId == 'admin'}" >
 							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/delete.do?num=${dto.num}&type=${type}'">글삭제</button>
-							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/update.do?num=${dto.num}'">글수정</button>
+							<button type="button" onclick="javascript:location.href='<%=cp%>/travel/update.do?num=${dto.num}&type=${type}'">글수정</button>
 						</c:if>
 					</div>
 				<br>
