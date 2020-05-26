@@ -48,8 +48,8 @@ function memberOk(mode) {
 
 <div class="main">
 	<div class="signup">
-		<h1>${title}</h1>	
-		<br>
+		<h1>${title}<img style="width:70px; height: 70px; float: right;" src="<%=cp%>/uploads/travel/${dto.imageFilename}" />
+		</h1>	
 	</div>
 	
 	<div class="index">
@@ -63,7 +63,6 @@ function memberOk(mode) {
 				| <a href="javascript:deleteFile('${dto.num}')">삭제</a>
 			</c:if> --%>
 
-		<img src="<%=cp%>/uploads/travel/${dto.imageFilename}" />
 		
 		 <p>
 		 	<font>&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>

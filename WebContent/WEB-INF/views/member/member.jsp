@@ -46,8 +46,8 @@ function memberOk() {
 		f.userId.focus();
 		return;
 	}
-	if(!/^[a-z][a-z0-9_]{3,10}$/i.test(str)) { 
-		alert("아이디는 5~10자이며 첫글자는 영문자이어야 합니다.");
+	if(!/^[a-z][a-z0-9_]{2,10}$/i.test(str)) { 
+		alert("아이디는 3~10자이며 첫글자는 영문자이어야 합니다.");
 		f.userId.focus();
 		return;
 	}

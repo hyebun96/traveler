@@ -93,7 +93,7 @@ function photoarticle(photoNum) {
 		<tr height="20px;"></tr>
 		<tr align="left" class="photomember">
 			<td>
-				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=jun'"class="btn1"> 전미주</button>
+				<button type="button" value="nam"style="width: 100%;" onclick="javascript:location.href='<%=cp%>/photo/photoMain.do?nam=euni'"class="btn1"> 전미주</button>
 			</td>
 		</tr>
 		<tr height="20px;"></tr>

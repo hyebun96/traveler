@@ -350,7 +350,6 @@ public class MemberServlet extends MyUploadServlet {
 			
 			forward(req, resp, "/WEB-INF/views/member/member.jsp");
 		}
-		
 	}
 //È¸¿øÅ»Åð	
 	private void deleteSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
