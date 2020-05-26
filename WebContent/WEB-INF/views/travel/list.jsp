@@ -38,7 +38,6 @@
 		<c:forEach var= "dto" items="${list}">
 			<div class="box">
 				<div class="content-box">
-				
 					<c:forEach var="s" items="${dto.imageFilename}">
 						 <img alt="" src="<%=cp%>/uploads/travel/${s}"> 
 					</c:forEach>
