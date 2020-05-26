@@ -429,8 +429,7 @@ public class MemberServlet extends MyUploadServlet {
 		if(page!=null) {
 			current_page=Integer.parseInt(page);
 		}
-		System.out.println(page);
-		System.out.println(current_page);
+	
 		String condition=req.getParameter("condition");
 		String keyword=req.getParameter("keyword");
 		if(condition==null) {  //condition가 null일때 keyword가 검색이 아님...
@@ -459,7 +458,7 @@ public class MemberServlet extends MyUploadServlet {
 		}
 		
 		int offset = (current_page - 1) * rows;
-		System.out.println(offset);
+	
 		List<MemberDTO> list;
 		if (keyword.length() != 0)
 			list = dao.listBoard(offset, rows, condition, keyword);
