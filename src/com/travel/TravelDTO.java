@@ -10,7 +10,7 @@ public class TravelDTO {
 	private String created;		// 생성일
 	private int likeNum;		// 좋아요 수
 	private String imageFilename[];	// 이미지 파일
-	private String type;			// 지역
+	private String type;			// 지역    
 	
 	public int getNum() {
 		return num;
