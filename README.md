@@ -20,11 +20,11 @@
 <br/>
 
 ## 주요기능
-- Travel '각 지역별 여행지 추천 리스트'
-- Gallery ''
-- Q&A
-- 자유게시판
-- Contect
+* Travel '각 지역별 여행지 추천 리스트'
+* Gallery ''
+* Q&A
+* 자유게시판
+* Contect
 
 </br>
 
