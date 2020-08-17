@@ -3,7 +3,8 @@
 각지의 여행 장소를 추천받고 커뮤니티에서 여행 기록을 서로 공유할 수있는 여행 가이드 홈페이지
 <br/>
 
-![그림1](https://user-images.githubusercontent.com/58923654/90392047-23afe600-e0c9-11ea-8de6-a25aede0cb3b.png) { width=50% }
+![그림1](https://user-images.githubusercontent.com/58923654/90392047-23afe600-e0c9-11ea-8de6-a25aede0cb3b.png 
+{width=200px height=200px})
 
 ![그림2](https://user-images.githubusercontent.com/58923654/90390522-6d4b0180-e0c6-11ea-89d4-4607fa806adb.png)
 ![그림3](https://user-images.githubusercontent.com/58923654/90390525-6e7c2e80-e0c6-11ea-9c9a-ff0c8705432b.png)
