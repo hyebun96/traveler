@@ -4,6 +4,9 @@
 <br/>
 
 ![그림1](https://user-images.githubusercontent.com/58923654/90390434-4987bb80-e0c6-11ea-9720-6f94bde5e025.png)
+![그림2](https://user-images.githubusercontent.com/58923654/90390522-6d4b0180-e0c6-11ea-89d4-4607fa806adb.png)
+![그림3](https://user-images.githubusercontent.com/58923654/90390525-6e7c2e80-e0c6-11ea-9c9a-ff0c8705432b.png)
+
 
 ## 참고사이트
 [내일로, 기차여행 커뮤니티](https://cafe.naver.com/hkct)
