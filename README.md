@@ -3,7 +3,7 @@
 ## 여행자 블로그
 
 ## 참고사이트
-[블로그 주소](https://blog.naver.com/ndb796)
+[내일로, 기차여행 커뮤니티](https://cafe.naver.com/hkct)
 
 ## 목차
 1. 특징
