@@ -1,4 +1,4 @@
-# traveler_Blog :black_nib:
+# traveler_Blog :four_leaf_clover:
 
 각지의 여행 장소를 추천받고 커뮤니티에서 여행 기록을 서로 공유할 수있는 여행 가이드 홈페이지
 <br/>
