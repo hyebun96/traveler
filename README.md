@@ -3,15 +3,17 @@
 각지의 여행 장소를 추천받고 커뮤니티에서 여행 기록을 서로 공유할 수있는 여행 가이드 홈페이지
 <br/>
 
-
+## 구현 화면
 <img src="https://user-images.githubusercontent.com/58923654/91034721-6b41ef00-e640-11ea-8235-65c9e66a450a.gif">
+<br/>
 
 ### 관리자 화면에서 여행지 등록
 <img src="https://user-images.githubusercontent.com/58923654/91035066-f622e980-e640-11ea-8cbe-0de71e46a4e5.PNG" >
+<br/>
 
 ### 여행지 추천 리스트 
 <img src="https://user-images.githubusercontent.com/58923654/91035069-f6bb8000-e640-11ea-9e85-c876d1fc3a85.PNG" >
-
+<br/>
 
 ## 참고사이트
 [내일로, 기차여행 커뮤니티](https://cafe.naver.com/hkct)
