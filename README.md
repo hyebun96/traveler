@@ -7,11 +7,11 @@
 <img src="https://user-images.githubusercontent.com/58923654/91034721-6b41ef00-e640-11ea-8235-65c9e66a450a.gif">
 <br/>
 
-### (1) 관리자 화면에서 여행지 등록
+### - 관리자 화면에서 여행지 등록
 <img src="https://user-images.githubusercontent.com/58923654/91035066-f622e980-e640-11ea-8cbe-0de71e46a4e5.PNG" >
 <br/>
 
-### (2) 여행지 추천 리스트 
+### - 여행지 추천 리스트 
 <img src="https://user-images.githubusercontent.com/58923654/91035069-f6bb8000-e640-11ea-9e85-c876d1fc3a85.PNG" >
 <br/>
 
@@ -25,16 +25,16 @@
 3. 사용기술
 <br/>
 
-## 기능
+## 1. 기능
 * Travel 
-  여섯가지 여행지(서울/강원/충청/전라/경상/제주)에 대한 추천 리스트 등록,수정,삭제
-  좋아요 기능
+  -여섯가지 여행지(서울/강원/충청/전라/경상/제주)에 대한 추천 리스트 등록,수정,삭제
+  -좋아요 기능
 * Gallery
   여행지에 다녀온 회원들의 개인 gallay
 * Q&A
   질문과 답변
 * 자유게시판
-* Contect
+* Contect 
 
 </br>
 
