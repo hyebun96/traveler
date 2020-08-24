@@ -52,8 +52,8 @@
 <br/>
 
 ## 3.기술사양
- -WAS/서버 : Apaxhe/Tomcat
- -DB : Oracle
- -백엔드 : JAVA
- -프론트엔드 : JSP
- -프레임워크 : Spring
+ - WAS/서버 : Apaxhe/Tomcat
+ - DB : Oracle
+ - 백엔드 : JAVA
+ - 프론트엔드 : JSP
+ - 프레임워크 : Spring
