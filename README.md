@@ -4,7 +4,7 @@
 <br/>
 
 ## 구현 화면
-<img src="https://user-images.githubusercontent.com/58923654/91034721-6b41ef00-e640-11ea-8235-65c9e66a450a.gif">
+<img src="https://user-images.githubusercontent.com/58923654/91034721-6b41ef00-e640-11ea-8235-65c9e66a450a.gif" align="center">
 <br/>
 
 ### - 관리자 화면에서 여행지 등록
